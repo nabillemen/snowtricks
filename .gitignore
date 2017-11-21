@@ -1,2 +1,5 @@
-vendor/
 symfony.phar
+vendor/
+var/cache/
+var/logs/
+var/sessions/
