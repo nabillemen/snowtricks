@@ -3,12 +3,14 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Image
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -24,15 +26,19 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="extension", type="string", length=255)
      */
-    private $name;
+    private $extension;
 
     /**
      * @ORM\ManyToOne(targetEntity="Trick", inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
-     private $trick;
+    private $trick;
+
+    private $file;
+
+    private $name;
 
     /**
      * Get id
@@ -42,6 +48,78 @@ class Image
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set extension
+     *
+     * @param string $extension
+     *
+     * @return Image
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+
+        return $this;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
+    /**
+     * Set trick
+     *
+     * @param \SnowTricksBundle\Entity\Trick $trick
+     *
+     * @return Image
+     */
+    public function setTrick(\SnowTricksBundle\Entity\Trick $trick)
+    {
+        $this->trick = $trick;
+
+        return $this;
+    }
+
+    /**
+     * Get trick
+     *
+     * @return \SnowTricksBundle\Entity\Trick
+     */
+    public function getTrick()
+    {
+        return $this->trick;
+    }
+
+    /**
+     * Set file
+     *
+     * @param \Symfony\Component\HttpFoundation\File\File $file
+     *
+     * @return Image
+     */
+    public function setFile(File $file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return \Symfony\Component\HttpFoundation\File\File
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 
     /**
@@ -69,26 +147,22 @@ class Image
     }
 
     /**
-     * Set trick
-     *
-     * @param \SnowTricksBundle\Entity\Trick $trick
-     *
-     * @return Image
+     * @ORM\PrePersist
      */
-    public function setTrick(\SnowTricksBundle\Entity\Trick $trick)
+    public function loadExtension()
     {
-        $this->trick = $trick;
-
-        return $this;
+        $this->extension = (null !== $this->file && null !== $this->file->getMimeType() ?
+            $this->guessExtension() : $this->file->getMimeType()
+        );
     }
 
     /**
-     * Get trick
-     *
-     * @return \SnowTricksBundle\Entity\Trick
+     * @ORM\PostPersist
+     * @ORM\PostUpdate
+     * @ORM\PostLoad
      */
-    public function getTrick()
+    public function loadName()
     {
-        return $this->trick;
+        $this->name = $this->id . '.' . $this->extension;
     }
 }
