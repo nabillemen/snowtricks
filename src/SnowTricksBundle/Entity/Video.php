@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="video")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\VideoRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Video
 {
@@ -33,6 +34,8 @@ class Video
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+    private $tag;
 
     /**
      * Get id
@@ -90,5 +93,37 @@ class Video
     public function getTrick()
     {
         return $this->trick;
+    }
+
+    /**
+     * Set tag
+     *
+     * @param string $tag
+     *
+     * @return Video
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+    }
+
+    /**
+     * Get tag
+     *
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function parseTag()
+    {
+        preg_match('#src="(.*)"#', $this->tag, $subpatterns);
+        $this->link = isset($subpatterns[1]) ? $subpatterns[1] : '';
     }
 }
