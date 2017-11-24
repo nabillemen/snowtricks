@@ -6,12 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use SnowTricksBundle\Validator\Constraints as OwnAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trick
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\TrickRepository")
+ * @UniqueEntity("name")
  */
 class Trick
 {
