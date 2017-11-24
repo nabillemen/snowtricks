@@ -160,9 +160,7 @@ class Image
      */
     public function loadExtension()
     {
-        $this->extension = (null !== $this->file && null !== $this->file->getMimeType() ?
-            $this->file->guessExtension() : $this->file->getMimeType()
-        );
+        $this->extension = $this->file->guessExtension();
     }
 
     /**
