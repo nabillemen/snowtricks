@@ -4,6 +4,7 @@ namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Image
@@ -36,6 +37,14 @@ class Image
      */
     private $trick;
 
+    /**
+     * @Assert\Image(
+     *      minWidth = 400,
+     *      minHeight = 200,
+     *      minWidthMessage = "image.file.min_width",
+     *      minHeightMessage = "image.file.min_height"
+     * )
+     */
     private $file;
 
     private $name;
@@ -152,7 +161,7 @@ class Image
     public function loadExtension()
     {
         $this->extension = (null !== $this->file && null !== $this->file->getMimeType() ?
-            $this->guessExtension() : $this->file->getMimeType()
+            $this->file->guessExtension() : $this->file->getMimeType()
         );
     }
 
@@ -163,6 +172,6 @@ class Image
      */
     public function loadName()
     {
-        $this->name = $this->id . '.' . $this->extension;
+        $this->name = $this->id . (empty($this->extension) ? '.' : $this->extension);
     }
 }

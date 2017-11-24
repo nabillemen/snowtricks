@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -25,6 +26,7 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message="category.name.not_blank")
      */
     private $name;
 
@@ -63,4 +65,3 @@ class Category
         return $this->name;
     }
 }
-

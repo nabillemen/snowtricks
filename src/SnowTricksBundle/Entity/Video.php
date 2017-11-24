@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Video
@@ -35,6 +36,10 @@ class Video
      */
     private $trick;
 
+    /**
+     * @Assert\Regex(pattern = "#^<iframe .* src=.*></iframe>|<embed .* src=.*></embed>$#",
+     *      message = "video.tag.regex")
+     */
     private $tag;
 
     /**

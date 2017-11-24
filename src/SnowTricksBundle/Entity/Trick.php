@@ -4,6 +4,8 @@ namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use SnowTricksBundle\Validator\Constraints as OwnAssert;
 
 /**
  * Trick
@@ -26,6 +28,13 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @Assert\NotBlank(message = "trick.name.not_blank")
+     * @Assert\Length(
+     *      min = 2,
+     *      max =  50,
+     *      minMessage = "trick.name.min",
+     *      maxMessage = "trick.name.max"
+     * )
      */
     private $name;
 
@@ -33,6 +42,11 @@ class Trick
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank(message = "trick.description.not_blank")
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "trick.description.min"
+     * )
      */
     private $description;
 
@@ -43,18 +57,59 @@ class Trick
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Image", mappedBy="trick", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *      targetEntity="Image",
+     *      mappedBy="trick",
+     *      cascade={"all"},
+     *      orphanRemoval=true,
+     *      fetch="EXTRA_LAZY"
+     * )
+     * @Assert\Count(
+     *      min = 1,
+     *      max = 5,
+     *      minMessage = "tricks.images.min",
+     *      maxMessage = "tricks.images.max"
+     * )
+     * @Assert\All({
+     *      @OwnAssert\ExistingOrValidElement(
+     *          message = "trick.images.invalid_image",
+     *          fqdn = "SnowTricksBundle\Entity\Image"
+     *      )
+     * })
      */
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="Video", mappedBy="trick", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *      targetEntity="Video",
+     *      mappedBy="trick",
+     *      cascade={"all"},
+     *      orphanRemoval=true,
+     *      fetch="EXTRA_LAZY"
+     * )
+     * @Assert\Count(
+     *      min = 1,
+     *      max = 3,
+     *      minMessage = "tricks.videos.min",
+     *      maxMessage = "tricks.videos.max"
+     * )
+     * @Assert\All({
+     *      @OwnAssert\ExistingOrValidElement(
+     *          message = "trick.videos.invalid_video",
+     *          fqdn = "SnowTricksBundle\Entity\Video"
+     *      )
+     * })
      */
     private $videos;
 
     /**
      * @ORM\OneToOne(targetEntity="Category")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message = "trick.category.not_blank")
+     * @OwnAssert\ExistingElement(
+     *      message = "trick.category.existing_category",
+     *      fqdn = "SnowTricksBundle\Entity\Category"
+     * )
      */
     private $category;
 
@@ -158,7 +213,10 @@ class Trick
      */
     public function addImage(\SnowTricksBundle\Entity\Image $image)
     {
-        $this->images[] = $image;
+        if(!$this->images->contains($image))
+        {
+            $this->images[] = $image;
+        }
         $image->setTrick($this);
 
         return $this;
@@ -193,7 +251,10 @@ class Trick
      */
     public function addVideo(\SnowTricksBundle\Entity\Video $video)
     {
-        $this->videos[] = $video;
+        if(!$this->videos->contains($video))
+        {
+            $this->videos[] = $video;
+        }
         $video->setTrick($this);
 
         return $this;

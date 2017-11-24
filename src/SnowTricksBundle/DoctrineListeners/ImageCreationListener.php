@@ -18,13 +18,11 @@ class ImageCreationListener
     {
         $image = $eventArgs->getObject();
 
-        if(!($image instanceof Image))
-        {
+        if(!($image instanceof Image)) {
             return;
         }
-
-        if(null !== $image->getFile())
-        {
+        
+        if(null !== $image->getFile()) {
             $image->getFile()->move($this->imageDir, $image->getName());
         }
     }
@@ -33,15 +31,13 @@ class ImageCreationListener
     {
         $image = $eventArgs->getObject();
 
-        if(!($image instanceof Image))
-        {
+        if(!($image instanceof Image)) {
             return;
         }
 
-        $absolutePath = $this->imageDir . '/' . $image->getName();
+        $absolutePath = $this->imageDir . $image->getName();
 
-        if(file_exists($absolutePath))
-        {
+        if(file_exists($absolutePath)) {
             unlink($absolutePath);
         }
     }
