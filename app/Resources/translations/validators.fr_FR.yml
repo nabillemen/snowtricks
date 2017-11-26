@@ -7,11 +7,9 @@ trick.description.not_blank: La figure doit avoir une description
 trick.description.min: La description de la figure est trop courte
 tricks.images.min: La figure doit contenir au moins 1 image
 tricks.images.max: La figure a trop d'images
-trick.images.invalid_image: L'image n'est pas valide
 tricks.videos.min: La figure doit contenir au moins 1 vidéo
 tricks.videos.max: La figure a trop de vidéos
-trick.videos.invalid_video: La vidéo n'est pas valide
-trick.category.not_blank: Une catégorie doit être attribuée à cette figure
+trick.category.not_null: Une catégorie doit être attribuée à cette figure
 trick.category.existing_category: La catégorie spécifiée n'existe pas
 
 video.tag.regex: Le lien spécifiée est invalide

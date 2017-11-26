@@ -72,12 +72,7 @@ class Trick
      *      minMessage = "tricks.images.min",
      *      maxMessage = "tricks.images.max"
      * )
-     * @Assert\All({
-     *      @OwnAssert\ExistingOrValidElement(
-     *          message = "trick.images.invalid_image",
-     *          fqdn = "SnowTricksBundle\Entity\Image"
-     *      )
-     * })
+     * @Assert\Valid()
      */
     private $images;
 
@@ -95,19 +90,14 @@ class Trick
      *      minMessage = "tricks.videos.min",
      *      maxMessage = "tricks.videos.max"
      * )
-     * @Assert\All({
-     *      @OwnAssert\ExistingOrValidElement(
-     *          message = "trick.videos.invalid_video",
-     *          fqdn = "SnowTricksBundle\Entity\Video"
-     *      )
-     * })
+     * @Assert\Valid()
      */
     private $videos;
 
     /**
      * @ORM\OneToOne(targetEntity="Category")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message = "trick.category.not_blank")
+     * @Assert\NotNull(message = "trick.category.not_null")
      * @OwnAssert\ExistingElement(
      *      message = "trick.category.existing_category",
      *      fqdn = "SnowTricksBundle\Entity\Category"
