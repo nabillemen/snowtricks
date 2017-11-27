@@ -15,7 +15,7 @@ class Fixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $names = ['slide', 'rotation', 'flip'];
-        
+
         foreach ($names as $names) {
             $category = new Category();
             $category->setName($name);
