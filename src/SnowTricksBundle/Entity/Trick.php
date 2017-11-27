@@ -6,12 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use SnowTricksBundle\Validator\Constraints as OwnAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trick
  *
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\TrickRepository")
+ * @UniqueEntity("name")
  */
 class Trick
 {
@@ -70,12 +72,7 @@ class Trick
      *      minMessage = "tricks.images.min",
      *      maxMessage = "tricks.images.max"
      * )
-     * @Assert\All({
-     *      @OwnAssert\ExistingOrValidElement(
-     *          message = "trick.images.invalid_image",
-     *          fqdn = "SnowTricksBundle\Entity\Image"
-     *      )
-     * })
+     * @Assert\Valid()
      */
     private $images;
 
@@ -93,19 +90,14 @@ class Trick
      *      minMessage = "tricks.videos.min",
      *      maxMessage = "tricks.videos.max"
      * )
-     * @Assert\All({
-     *      @OwnAssert\ExistingOrValidElement(
-     *          message = "trick.videos.invalid_video",
-     *          fqdn = "SnowTricksBundle\Entity\Video"
-     *      )
-     * })
+     * @Assert\Valid()
      */
     private $videos;
 
     /**
-     * @ORM\OneToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message = "trick.category.not_blank")
+     * @Assert\NotNull(message = "trick.category.not_null")
      * @OwnAssert\ExistingElement(
      *      message = "trick.category.existing_category",
      *      fqdn = "SnowTricksBundle\Entity\Category"

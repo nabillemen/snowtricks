@@ -128,7 +128,7 @@ class Video
      */
     public function parseTag()
     {
-        preg_match('#src="(.*)"#', $this->tag, $subpatterns);
+        preg_match('#src="(.*?)"#', $this->tag, $subpatterns);
         $this->link = isset($subpatterns[1]) ? $subpatterns[1] : '';
     }
 }
