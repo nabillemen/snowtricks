@@ -14,10 +14,3 @@ services:
             $em: "@doctrine.orm.entity_manager"
         tags:
             - { name: validator.constraint_validator }
-
-    SnowTricksBundle\Validator\Constraints\ExistingOrValidElementValidator:
-        arguments:
-            $em: "@doctrine.orm.entity_manager"
-            $validator: "@validator"
-        tags:
-            - { name: validator.constraint_validator }

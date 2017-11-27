@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\DoctrineListeners;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use SnowTricksBundle\Utils\Resizer;
 use SnowTricksBundle\Entity\Image;
 
 class ImageCreationListener
@@ -21,7 +22,7 @@ class ImageCreationListener
         if(!($image instanceof Image)) {
             return;
         }
-        
+
         if(null !== $image->getFile()) {
             $image->getFile()->move($this->imageDir, $image->getName());
         }

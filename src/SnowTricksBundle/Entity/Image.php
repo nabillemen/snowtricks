@@ -39,10 +39,15 @@ class Image
 
     /**
      * @Assert\Image(
-     *      minWidth = 400,
-     *      minHeight = 200,
+     *      mimeTypesMessage = "image.file.invalid",
+     *      minWidth = 640,
+     *      minHeight = 360,
      *      minWidthMessage = "image.file.min_width",
-     *      minHeightMessage = "image.file.min_height"
+     *      minHeightMessage = "image.file.min_height",
+     *      minRatio = 1.5,
+     *      maxRatio = 2,
+     *      minRatioMessage = "image.file.ratio",
+     *      maxRatioMessage = "image.file.ratio"
      * )
      */
     private $file;
@@ -170,6 +175,6 @@ class Image
      */
     public function loadName()
     {
-        $this->name = $this->id . (empty($this->extension) ? '.' : $this->extension);
+        $this->name = $this->id . (!empty($this->extension) ? '.'.$this->extension : '');
     }
 }

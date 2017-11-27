@@ -8,6 +8,8 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr_FR
+    snowtricks.server.image_directory: '%kernel.project_dir%/web/uploads/tricks/'
+    snowtricks.client.image_directory: 'uploads/tricks/'
 
 framework:
     #esi: ~

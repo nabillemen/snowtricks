@@ -95,7 +95,7 @@ class Trick
     private $videos;
 
     /**
-     * @ORM\OneToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotNull(message = "trick.category.not_null")
      * @OwnAssert\ExistingElement(

@@ -1,4 +1,5 @@
 category.name.not_blank: La catégorie doit avoir un nom
+category.name.not_unique: Une catégorie dispose déjà du nom indiqué
 
 trick.name.not_blank: La figure doit avoir un nom
 trick.name.min: Le nom de la figure est trop court
@@ -14,5 +15,7 @@ trick.category.existing_category: La catégorie spécifiée n'existe pas
 
 video.tag.regex: Le lien spécifiée est invalide
 
+image.file.invalid: Le fichier ne semble pas être une image
 image.file.min_width: L'image est trop petite en largeur
 image.file.min_height: L'image est trop petite en longueur
+image.file.ratio: L'image ne respecte pas les proportions

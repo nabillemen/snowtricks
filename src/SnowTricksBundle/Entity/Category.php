@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\CategoryRepository")
- * @UniqueEntity("name")
+ * @UniqueEntity("name", message = "category.name.not_unique")
  */
 class Category
 {
