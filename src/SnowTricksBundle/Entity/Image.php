@@ -40,8 +40,8 @@ class Image
     /**
      * @Assert\Image(
      *      mimeTypesMessage = "image.file.invalid",
-     *      minWidth = 640,
-     *      minHeight = 360,
+     *      minWidth = 630,
+     *      minHeight = 350,
      *      minWidthMessage = "image.file.min_width",
      *      minHeightMessage = "image.file.min_height",
      *      minRatio = 1.5,
