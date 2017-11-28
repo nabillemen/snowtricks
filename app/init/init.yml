@@ -5,55 +5,6 @@ categories:
     - 'slide'
 
 tricks:
-    Bloody Dracula:
-        category: 'grab'
-        description: "La main avant derrière le dos, il s'agit d'attraper le queue de la planche, en s'aidant de la main arrière."
-        images:
-            - 'bloody-dracula.jpg'
-        videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/UU9iKINvlyU" frameborder="0" allowfullscreen></iframe>'
-    Canadian Bacon:
-        category: 'grab'
-        description: "La main arrière doit attraper la planche du côté orteilles. Cela doit se faire en passant la main par l'arrière, entre les jambes."
-        images:
-            - 'canadian-bacon.jpg'
-        videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/6zALCB6WJBI" frameborder="0" allowfullscreen></iframe>'
-    Chicken Salad:
-        category: 'grab'
-        description: "La main arrière doit attraper la planche du côté des talons. Cela doit se faire en passant la main par l'avant, entre les jambes."
-        images:
-            - 'chicken-salad.jpg'
-        videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/TTgeY_XCvkQ" frameborder="0" allowfullscreen></iframe>'
-    Cookie Monster:
-        category: 'grab'
-        description: "Les deux mains attrapent le nez. Ensuite il faut mordre le nez de la planche avec la bouche."
-        images:
-            - 'cookie-monster.jpg'
-        videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/gM_PthuQWpk" frameborder="0" allowfullscreen></iframe>'
-    Japan:
-        category: 'grab'
-        description: "Le main avant entoure le tibia avant et attrape le côté orteille entre les attaches. Les genoux sont pliés, les jambes sont montées vers le haut."
-        images:
-            - 'japan.jpg'
-        videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/jH76540wSqU" frameborder="0" allowfullscreen></iframe>'
-    Melon:
-        category: 'grab'
-        description: "Attrape la planche avec la main avant, côté talon, entre les attaches."
-        images:
-            - 'melon.jpg'
-        videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/OMxJRz06Ujc" frameborder="0" allowfullscreen></iframe>'
-    Roast Beef:
-        category: 'grab'
-        description: "La main arrière se place en travers des jambes et attrape le côté talon entre les attaches."
-        images:
-            - 'roast-beef.jpg'
-        videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/5ylWnm4rF1o" frameborder="0" allowfullscreen></iframe>'
     Seatbelt:
         category: 'grab'
         description: "La main avant doit attraper l'arrière de la planche. Le mouvement est similaire à un bouclage de ceinture."
@@ -61,13 +12,41 @@ tricks:
             - 'seatbelt.jpg'
         videos:
             - '<iframe width="560" height="315" src="https://www.youtube.com/embed/4vGEOYNGi_c" frameborder="0" allowfullscreen></iframe>'
-    Slob:
+    Canadian Bacon:
         category: 'grab'
-        description: "La main avant attrape le côté orteille entre les attaches, pendant que une rotation avant."
+        description: "La main arrière doit attraper la planche du côté orteilles. Cela doit se faire en passant la main par l'arrière, entre les jambes."
         images:
-            - 'slob.jpg'
+            - 'canadian-bacon.jpg'
         videos:
-            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/IGy2hEIIKs0" frameborder="0" allowfullscreen></iframe>'
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/6zALCB6WJBI" frameborder="0" allowfullscreen></iframe>'
+    Bloody Dracula:
+        category: 'grab'
+        description: "La main avant derrière le dos, il s'agit d'attraper le queue de la planche, en s'aidant de la main arrière."
+        images:
+            - 'bloody-dracula.jpg'
+        videos:
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/UU9iKINvlyU" frameborder="0" allowfullscreen></iframe>'
+    Melon:
+        category: 'grab'
+        description: "Attrape la planche avec la main avant, côté talon, entre les attaches."
+        images:
+            - 'melon.jpg'
+        videos:
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/OMxJRz06Ujc" frameborder="0" allowfullscreen></iframe>'
+    Chicken Salad:
+        category: 'grab'
+        description: "La main arrière doit attraper la planche du côté des talons. Cela doit se faire en passant la main par l'avant, entre les jambes."
+        images:
+            - 'chicken-salad.jpg'
+        videos:
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/TTgeY_XCvkQ" frameborder="0" allowfullscreen></iframe>'
+    Japan:
+        category: 'grab'
+        description: "Le main avant entoure le tibia avant et attrape le côté orteille entre les attaches. Les genoux sont pliés, les jambes sont montées vers le haut."
+        images:
+            - 'japan.jpg'
+        videos:
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/jH76540wSqU" frameborder="0" allowfullscreen></iframe>'
     Stalefish:
         category: 'grab'
         description: "La main arrière atteint le la planche côté talon entre les attaches."
@@ -75,3 +54,24 @@ tricks:
             - 'stalefish.jpg'
         videos:
             - '<iframe width="560" height="315" src="https://www.youtube.com/embed/f9FjhCt_w2U" frameborder="0" allowfullscreen></iframe>'
+    Roast Beef:
+        category: 'grab'
+        description: "La main arrière se place en travers des jambes et attrape le côté talon entre les attaches."
+        images:
+            - 'roast-beef.jpg'
+        videos:
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/5ylWnm4rF1o" frameborder="0" allowfullscreen></iframe>'
+    Slob:
+        category: 'grab'
+        description: "La main avant attrape le côté orteille entre les attaches, pendant que une rotation avant."
+        images:
+            - 'slob.jpg'
+        videos:
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/IGy2hEIIKs0" frameborder="0" allowfullscreen></iframe>'
+    Cookie Monster:
+        category: 'grab'
+        description: "Les deux mains attrapent le nez. Ensuite il faut mordre le nez de la planche avec la bouche."
+        images:
+            - 'cookie-monster.jpg'
+        videos:
+            - '<iframe width="560" height="315" src="https://www.youtube.com/embed/gM_PthuQWpk" frameborder="0" allowfullscreen></iframe>'

@@ -1,0 +1,35 @@
+{% extends 'primary.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Bienvenue
+{% endblock %}
+
+{% block content %}
+    <section class="bg-light" id="tricks">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Liste des figures</h2>
+            <h3 class="section-subheading text-muted">Elles sont toutes répertoriées ici</h3>
+          </div>
+        </div>
+
+        <div class="row">
+
+        {% for trick in tricks %}
+          <div class="col-md-4 col-sm-6 portfolio-item">
+            <a class="portfolio-link" href="{{ path('trick_view', {'slug': trick.slug}) }}">
+                <img class="img-fluid" src="{{ asset('uploads/tricks/' ~ trick.images.first.name) }}" alt="">
+                <div class="portfolio-caption">
+                  <h4>{{ trick.name | upper }}</h4>
+                  <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
+                </div>
+            </a>
+          </div>
+        {% endfor %}
+
+        </div>
+      </div>
+    </section>
+{% endblock %}
