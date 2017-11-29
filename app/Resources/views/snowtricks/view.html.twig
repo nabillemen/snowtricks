@@ -1,7 +1,7 @@
 {% extends 'secondary.html.twig' %}
 
 {% block title %}
-    {{ parent() - 'Trick' }}
+    {{ parent() ~ '- ' ~ trick.name }}
 {% endblock %}
 
 {% block content %}
@@ -9,38 +9,41 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Seatbelt</h2>
-            <h3 class="section-subheading text-muted">Catégorie</h3>
+            <h2 class="section-heading text-uppercase">{{ trick.name | upper }}</h2>
+            <h3 class="section-subheading text-muted">{{ trick.category.name | upper }}</h3>
           </div>
-          <div class="col-lg-12">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <div class="col-lg-12 text-center">
+              <p>{{ trick.description }}</p>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-12 text-center trick-media">
-              <img class="img-fluid" src="img/tricks/seatbelt.jpg" alt="">
-          </div>
-          <div class="col-lg-12 text-center trick-media">
-              <!--<embed class="embed-responsive-item" src="https://www.youtube.com/embed/i5Tkwa1eMY4" />-->
-              <iframe frameborder="0" width="480" height="270" src="https://www.dailymotion.com/embed/video/x695n22" allowfullscreen></iframe>
-          </div>
+            {% for image in trick.images %}
+                <div class="col-lg-12 text-center trick-media">
+                  <img class="img-fluid" src="{{ asset(trick_image_directory ~ image.name) }}" alt="">
+                </div>
+             {% endfor %}
+             {% for video in trick.videos %}
+                <div class="col-lg-12 text-center trick-media">
+                    <embed class="embed-responsive-item" src="{{ video.link }}" />
+                </div>
+              {% endfor %}
         </div>
         <div class="row">
             <div class="col-lg-12 btns">
-                <p class="pull-right">
-                  <a href="#" class="btn btn-info">
+                <p class="text-center">
+                  <a href="{{ path('trick_index', {'page': 1}) }}" class="btn btn-info">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                     Retour à la liste
                   </a>
-                  <a href="#" class="btn btn-primary">
+                  <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="btn btn-primary">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     Modifier la figure
                   </a>
-                  <a href="#" class="btn btn-danger">
+                  <a href="{{ path('trick_delete', {'slug': trick.slug}) }}" class="btn btn-danger">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     Supprimer la figure
                   </a>
-                </p>
+              </p>
             </div>
         </div>
       </div>

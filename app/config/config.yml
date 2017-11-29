@@ -8,8 +8,10 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr_FR
-    snowtricks.server.image_directory: '%kernel.project_dir%/web/uploads/tricks/'
-    snowtricks.client.image_directory: 'uploads/tricks/'
+    trick.client.image_directory: 'uploads/tricks/'
+    trick.server.image_directory: '%kernel.project_dir%/web/%trick.client.image_directory%'
+    snowtricks.tricks.amount_per_page: 6
+    snowtricks.tricks.range: 5
 
 framework:
     #esi: ~
@@ -42,6 +44,9 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         lang: '%locale%'
+        index_range: '%snowtricks.tricks.range%'
+        index_amount_per_page: '%snowtricks.tricks.amount_per_page%'
+        trick_image_directory: '%trick.client.image_directory%'
 
 # Doctrine Configuration
 doctrine:
@@ -53,6 +58,9 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
+        # PDO::MYSQL_ATTR_INIT_COMMAND
+        options:
+             1002: "SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))"
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -77,3 +85,12 @@ stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
+
+sensio_framework_extra:
+    router:
+        annotations: true
+    request:
+        converters: true
+        auto_convert: true
+    view:
+        annotations: true

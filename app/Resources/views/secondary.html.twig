@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
 {% block header %}
     <header class="secondary-masthead">
-          <img src="img/secondary-snowtricks-header.jpg" alt="" />
+          <img src="{{ asset('assets/img/secondary-snowtricks-header.jpg')}}" alt="" />
     </header>
 {% endblock %}
