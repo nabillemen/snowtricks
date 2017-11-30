@@ -3,6 +3,7 @@
 namespace SnowTricksBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SnowTricksBundle\Entity\Trick;
@@ -25,8 +26,7 @@ class TrickController extends Controller
                             'snowtricks.tricks.amount_per_page'
                         ));
 
-        if(!$tricks->getIterator()->count())
-        {
+        if (!$tricks->getIterator()->count()) {
             throw $this->createNotFoundException();
         }
 
@@ -55,9 +55,31 @@ class TrickController extends Controller
     /**
      * @Route("/delete/{slug}", name = "trick_delete")
      */
-    public function deleteAction(Trick $trick)
+    public function deleteAction(Trick $trick, Request $request)
     {
-        return $this->render('snowtricks/delete.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFormBuilder()->getForm();
+
+        if ($request->isMethod('POST')) {
+            $form->submit($request->request->get($form->getName()));
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->remove($trick);
+                $em->flush();
+
+                $this->addFlash(
+                    'notice',
+                    'La figure '.$trick->getName().' a bien été supprimée'
+                );
+
+                return $this->redirect($this->generateUrl('trick_index').'#tricks');
+            }
+        }
+
+        return $this->render('snowtricks/delete.html.twig', array(
+            'trick' => $trick,
+            'csrf_token' => $form->createView()
+        ));
     }
 
     /**

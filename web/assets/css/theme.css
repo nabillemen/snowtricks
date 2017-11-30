@@ -561,3 +561,20 @@ footer {
 .btns {
     margin-top: 75px;
 }
+
+.view-link {
+    display: inline-block;
+}
+
+.img-fluid {
+    margin-bottom: 10px;
+}
+
+.btn-link {
+    background:none;
+    border:none;
+    font: inherit;
+    cursor: pointer !important;
+    color: inherit;
+    margin-bottom: 10px;
+}

@@ -1,120 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'secondary.html.twig' %}
 
-  <head>
+{% block title %}
+    {{ parent() ~ '- Delete ' ~ trick.name }}
+{% endblock %}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SnowTricks</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
-    <!-- Custom styles for this template -->
-    <link href="css/theme.css" rel="stylesheet">
-
-  </head>
-
-  <body id="page-top">
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">SnowTricks</a>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link btn btn-success btn-sm snowtricks-menu-item" href="/login">Se connecter</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link btn btn-primary-default btn-sm snowtricks-menu-item" href="/register">S'inscrire</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Header -->
-    <header class="secondary-masthead">
-          <img src="img/secondary-snowtricks-header.jpg" alt="" />
-    </header>
-
+{% block content %}
     <!-- Tricks Grid -->
     <section class="bg-light" id="tricks">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Êtes-vous sûr de vouloir supprimer la figure "Backside Crail" ?</h2>
+            <h2 class="section-heading text-uppercase">Êtes-vous sûr de vouloir supprimer la figure "{{ trick.name }}" ?</h2>
           </div>
         </div>
         <div class="row">
             <div class="col-lg-12 btns">
-                <p class="text-center">
-                  <a href="#" class="btn btn-info">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    Non, je veux retourner à la présentation
-                  </a>
-                  <a href="#" class="btn btn-danger">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    Oui, je confirme la suppression de cette figure
-                  </a>
+                    <form class="text-center" action="{{ path('trick_delete', {'slug': trick.slug}) }}" method="post">
+                          <a href="{{ path('trick_view', {'slug': trick.slug}) }}" class="btn btn-info">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            Non, je veux retourner à la présentation
+                          </a>
+                          {{ form_rest(csrf_token) }}
+                          <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            Oui, je confirme la suppression de cette figure
+                        </button>
+                    </form>
             </div>
         </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <span class="copyright">Copyright &copy; SnowTricks 2017</span>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-twitter"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <i class="fa fa-facebook"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline quicklinks discrete-link">
-              <li class="list-inline-item">
-                <a href="#">Mentions légales</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for this template -->
-    <script src="js/agency.min.js"></script>
-
-  </body>
-
-</html>
+{% endblock %}
