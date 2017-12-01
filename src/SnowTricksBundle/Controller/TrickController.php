@@ -4,9 +4,12 @@ namespace SnowTricksBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SnowTricksBundle\Entity\Trick;
+use SnowTricksBundle\Form\TrickType;
 
 class TrickController extends Controller
 {
@@ -60,20 +63,18 @@ class TrickController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()->getForm();
 
-        if ($request->isMethod('POST')) {
-            $form->submit($request->request->get($form->getName()));
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $em->remove($trick);
-                $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->remove($trick);
+            $em->flush();
 
-                $this->addFlash(
-                    'notice',
-                    'La figure '.$trick->getName().' a bien été supprimée'
-                );
+            $this->addFlash(
+                'notice',
+                'La figure '.$trick->getName().' a bien été supprimée'
+            );
 
-                return $this->redirect($this->generateUrl('trick_index').'#tricks');
-            }
+            return $this->redirect($this->generateUrl('trick_index').'#tricks');
         }
 
         return $this->render('snowtricks/delete.html.twig', array(
@@ -87,7 +88,12 @@ class TrickController extends Controller
      */
     public function addAction()
     {
-        return $this->render('snowtricks/add.html.twig');
+        $trick = $this->getDoctrine()->getManager()->getRepository('SnowTricksBundle:Trick')->find(134);
+        $form = $this->createForm(TrickType::class, $trick);
+
+        return $this->render('snowtricks/add.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
