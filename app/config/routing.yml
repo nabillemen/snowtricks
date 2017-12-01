@@ -1,4 +1,3 @@
 snow_tricks:
-    resource: "@SnowTricksBundle/Resources/config/routing.yml"
-    prefix:   /
-
+    resource: "@SnowTricksBundle/Controller/"
+    type: annotation

@@ -1,3 +1,0 @@
-snow_tricks_homepage:
-    path:     /
-    defaults: { _controller: SnowTricksBundle:Default:index }

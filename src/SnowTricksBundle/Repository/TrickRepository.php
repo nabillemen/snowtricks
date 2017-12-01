@@ -2,6 +2,8 @@
 
 namespace SnowTricksBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * TrickRepository
  *
@@ -10,4 +12,36 @@ namespace SnowTricksBundle\Repository;
  */
 class TrickRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getOrderedList($page, $amountPerPage)
+    {
+        $query = $this->_em->createQuery(
+            "SELECT t, i
+                FROM SnowTricksBundle:Trick t
+                JOIN t.images i
+                ORDER BY t.name"
+        );
+
+        $query->setFirstResult(($page - 1) * $amountPerPage)
+              ->setMaxResults($amountPerPage);
+
+        return new Paginator($query, true);
+    }
+
+    public function findBySlugWithAll($slug)
+    {
+        if (is_array($slug)) {
+            $slug = array_values($slug)[0];
+        }
+
+        $query = $this->_em->createQuery(
+            "SELECT t, c, i, v
+                FROM SnowTricksBundle:Trick t
+                JOIN t.category c
+                JOIN t.images i
+                JOIN t.videos v
+                WHERE t.slug = '".$slug."'"
+        );
+
+        return $query->getOneOrNullResult();
+    }
 }

@@ -1,0 +1,33 @@
+{% extends 'secondary.html.twig' %}
+
+{% block title %}
+    {{ parent() ~ '- Delete ' ~ trick.name }}
+{% endblock %}
+
+{% block content %}
+    <!-- Tricks Grid -->
+    <section class="bg-light" id="tricks">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Êtes-vous sûr de vouloir supprimer la figure "{{ trick.name }}" ?</h2>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 btns">
+                    <form class="text-center" action="{{ path('trick_delete', {'slug': trick.slug}) }}" method="post">
+                          <a href="{{ path('trick_view', {'slug': trick.slug}) }}" class="btn btn-info">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            Non, je veux retourner à la présentation
+                          </a>
+                          {{ form_rest(csrf_token) }}
+                          <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            Oui, je confirme la suppression de cette figure
+                        </button>
+                    </form>
+            </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

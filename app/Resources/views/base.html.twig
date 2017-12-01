@@ -1,13 +1,87 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="{{ lang }}">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}SnowTricks{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link href="{{ asset('assets/asset-vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/asset-vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+        <link href="{{ asset('assets/css/theme.css') }}" rel="stylesheet">
+    {% endblock %}
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">SnowTricks</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger btn btn-success btn-sm snowtricks-menu-item" href="/login">Se connecter</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger btn btn-primary-default btn-sm snowtricks-menu-item" href="/register">S'inscrire</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% block header %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">Copyright &copy; SnowTricks 2017</span>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fa fa-twitter"></i>
+                    </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline quicklinks discrete-link">
+              <li class="list-inline-item">
+                <a href="#">Mentions légales</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    {% block scripts %}
+        <script src="{{ asset('assets/asset-vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/asset-vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/asset-vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('assets/js/agency.min.js') }}"></script>
+    {% endblock %}
+  </body>
+
 </html>
