@@ -23,8 +23,10 @@
         <div class="row">
         {% for trick in tricks %}
           <div class="col-md-4 col-sm-6 portfolio-item">
+              <!--
               <img class="img-fluid" src="{{ asset('uploads/tricks/' ~ trick.images.first.name) }}" alt="">
               <div class="portfolio-caption">
+
                 <h4>
                     <form class="view-link" action="{{ path('trick_view', {'slug': trick.slug}) }}" method="post">
                       <button type="submit" name="page" value="{{ page }}" class="btn-link">{{ trick.name | upper }}</button>
@@ -38,18 +40,15 @@
                     </a>
                     </div>
                 </h4>
-                <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
+                -->
+                <a class="portfolio-link" href="{{ path('trick_view', {'slug': trick.slug}) }}">
+                    <img class="img-fluid" src="{{ asset('uploads/tricks/' ~ trick.images.first.name) }}" alt="">
+                    <div class="portfolio-caption">
+                      <h4>{{ trick.name | upper }}</h4>
+                      <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
+                    </div>
+                </a>
               </div>
-              <!--
-            <a class="portfolio-link" href="{{ path('trick_view', {'slug': trick.slug}) }}">
-                <img class="img-fluid" src="{{ asset('uploads/tricks/' ~ trick.images.first.name) }}" alt="">
-                <div class="portfolio-caption">
-                  <h4>{{ trick.name | upper }}</h4>
-                  <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
-                </div>
-            </a>
-        -->
-          </div>
         {% endfor %}
         </div>
 

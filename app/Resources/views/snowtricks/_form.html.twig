@@ -1,0 +1,50 @@
+<div class="well">
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+{#
+        <div class="form-group">
+            <div class="col-sm-2">
+                {{ form_label(form.name, null, {
+                    'label': 'Nom',
+                    'label_attr': {'class': 'control-label'}
+                }) }}
+            </div>
+            <div class="col-sm-2">
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+#}
+        <div class="form-group">
+            <div class="col-sm-2">
+                {{ form_label(form.description, null, {
+                    'label': 'Description',
+                    'label_attr': {'class': 'control-label'}
+                }) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_errors(form.description) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-2">
+                {{ form_label(form.category, null, {
+                    'label': 'Catégorie',
+                    'label_attr': {'class': 'control-label'}
+                }) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_errors(form.category) }}
+                {{ form_widget(form.category) }}
+            </div>
+        </div>
+
+        {% for image in form.images %}
+            {{ form_row(image) }}
+        {% endfor %}
+        <input type="submit" value="Ajouter">
+    {{ form_end(form) }}
+</div>

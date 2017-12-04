@@ -31,7 +31,17 @@ class InitializeCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $container = $this->getContainer();
+        $em = $container->get('doctrine.orm.entity_manager');
+        $validator = $container->get('validator');
         $configDir = $container->getParameter('kernel.project_dir') . '/app/init/';
+
+        echo "The database will be purged, do you want to pursue (y/n)? ";
+        $handle = fopen('php://stdin', 'r');
+        $confirmation = strtolower(trim(fgets($handle)));
+
+        if($confirmation != 'y' && $confirmation != 'yes') {
+            exit();
+        }
 
         try {
             $data = Yaml::parse(file_get_contents($configDir.'init.yml'));
@@ -40,12 +50,23 @@ class InitializeCommand extends ContainerAwareCommand
             exit();
         }
 
+        $previousEntities = array_merge(
+            $em->getRepository('SnowTricksBundle:Image')->findAll(),
+            $em->getRepository('SnowTricksBundle:Video')->findAll(),
+            $em->getRepository('SnowTricksBundle:Trick')->findAll(),
+            $em->getRepository('SnowTricksBundle:Category')->findAll()
+        );
+
         $barScale = isset($data['categories']) ? count($data['categories']): 0;
         $barScale += isset($data['tricks']) ? count($data['tricks']): 0;
+        $barScale += count($previousEntities);
         $bar = new ProgressBar($output, $barScale);
 
-        $em = $container->get('doctrine.orm.entity_manager');
-        $validator = $container->get('validator');
+        foreach ($previousEntities as &$previousEntity) {
+            $em->remove($previousEntity);
+            $bar->advance();
+        }
+        $em->flush();
 
         $categories = array();
         if (!empty($data['categories'])) {

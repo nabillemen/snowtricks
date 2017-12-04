@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\CategoryRepository")
  * @UniqueEntity("name", message = "category.name.not_unique")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -64,5 +65,13 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->name = ucfirst($this->name);
     }
 }

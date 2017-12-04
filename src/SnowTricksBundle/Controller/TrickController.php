@@ -91,6 +91,7 @@ class TrickController extends Controller
         $trick = $this->getDoctrine()->getManager()->getRepository('SnowTricksBundle:Trick')->find(134);
         $form = $this->createForm(TrickType::class, $trick);
 
+
         return $this->render('snowtricks/add.html.twig', array(
             'form' => $form->createView()
         ));
