@@ -139,7 +139,9 @@ class TrickController extends Controller
                 'La figure ' . $trick->getName() . ' a bien été modifiée'
             );
 
-            return $this->redirect($this->generateUrl('trick_index') . '#tricks');
+            return $this->redirect($this->generateUrl('trick_view', array(
+                'slug' => $trick->getSlug()
+            )));
         }
 
         return $this->render('snowtricks/edit.html.twig', array(
