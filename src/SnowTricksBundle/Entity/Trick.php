@@ -301,8 +301,3 @@ class Trick
         $this->name = ucwords($this->name);
     }
 }
-
-//@OwnAssert\ExistingElement(
-//     message = "trick.category.existing_category",
-//     fqdn = "SnowTricksBundle\Entity\Category"
-//)
