@@ -578,3 +578,33 @@ footer {
     color: inherit;
     margin-bottom: 10px;
 }
+
+.trick-title {
+    display: inline-block;
+}
+
+.management-btns {
+    display: inline-block;
+    float: right;
+}
+
+label {
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.control-label {
+    font-weight: bold;
+}
+
+#video-container label, #image-container label {
+    margin: 5px;
+    margin-right: 10px;
+}
+
+#remove_image, #add_image, #add_video, #remove_video {
+    margin-bottom: 15px;
+    vertical-align: baseline;
+}
+#remove_image, #remove_video {
+    margin-left: 20px;
+}

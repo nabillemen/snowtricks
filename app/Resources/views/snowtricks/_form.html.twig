@@ -1,50 +1,138 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+
+
+
 <div class="well">
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-        {{ form_errors(form) }}
-
-{#
-        <div class="form-group">
-            <div class="col-sm-2">
-                {{ form_label(form.name, null, {
-                    'label': 'Nom',
-                    'label_attr': {'class': 'control-label'}
-                }) }}
-            </div>
-            <div class="col-sm-2">
-                {{ form_errors(form.name) }}
-                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
-            </div>
+    {{ form_start(form, {'attr': {'class': 'well form-horizontal', 'novalidate': 'novalidate'}}) }}
+    <div class="form-row">
+        <div class="col-md-7">
+            {% if not form.vars.data.id %}
+                <div class="form-group col-sm-6">
+                    <div>
+                        {{ form_label(form.name, null, {
+                            'label': 'Nom',
+                            'label_attr': {'class': 'control-label'}
+                        }) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+            {% endif %}
+                <div class="form-group col-lg-12">
+                    <div>
+                        {{ form_label(form.description, null, {
+                            'label': 'Description',
+                            'label_attr': {'class': 'control-label'}
+                        }) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
         </div>
-#}
-        <div class="form-group">
-            <div class="col-sm-2">
-                {{ form_label(form.description, null, {
-                    'label': 'Description',
-                    'label_attr': {'class': 'control-label'}
-                }) }}
-            </div>
-            <div class="col-sm-4">
-                {{ form_errors(form.description) }}
-                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-2">
+        <div class="form-group col-md-5">
+            <div>
                 {{ form_label(form.category, null, {
                     'label': 'Catégorie',
                     'label_attr': {'class': 'control-label'}
                 }) }}
             </div>
-            <div class="col-sm-4">
+            <div>
                 {{ form_errors(form.category) }}
                 {{ form_widget(form.category) }}
             </div>
         </div>
-
-        {% for image in form.images %}
-            {{ form_row(image) }}
-        {% endfor %}
-        <input type="submit" value="Ajouter">
-    {{ form_end(form) }}
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <div>
+                {{ form_label(form.images, null, {
+                    'label': 'Images',
+                    'label_attr': {'class': 'control-label'}
+                }) }}
+                <button id="remove_image" class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+                <button id="add_image" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+            </div>
+            <ul id="image-container" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
+            {% if image_max_id is defined %}
+                image-max-id="{{ image_max_id }}"
+            {% endif %}>
+            {% set i = 0 %}
+            {% for image in form.images %}
+                {% set i = i + 1 %}
+                <div>
+                {% if image.vars.data.id is not null %}
+                    <div>
+                    <div>
+                        <label for="{{ image.file.vars.id }}">
+                            Image {{ i }}
+                        </label>
+                    </div>
+                    </div>
+                    <img class="img-responsive" src="{{ asset(trick_image_directory ~ image.vars.data.name) }}" alt="">
+                    {{ form_widget(image.file, { 'attr': { 'class': 'd-none' }}) }}
+                {% else %}
+                    {{ form_errors(image.file) }}
+                    <div>
+                    <div>
+                        <label for="{{ image.file.vars.id }}">
+                            Image {{ i }}
+                        </label>
+                        {{ form_widget(image.file) }}
+                    </div>
+                    </div>
+                {% endif %}
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="form-group col-md-6">
+            <div>
+                {{ form_label(form.videos, null, {
+                    'label': 'Vidéos',
+                    'label_attr': {'class': 'control-label'}
+                }) }}
+                <button id="remove_video" class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
+                <button id="add_video" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
+            </div>
+            <ul id="video-container" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}"
+            {% if video_max_id is defined %}
+                video-max-id="{{ video_max_id }}"
+            {% endif %}>
+                {% set i = 0 %}
+                {% for video in form.videos %}
+                    {% set i = i + 1 %}
+                    <div>
+                    {% if video.vars.data.id is not null %}
+                        <div>
+                        <div>
+                            <label for="{{ video.tag.vars.id }}">
+                                    Vidéo {{ i }}
+                            </label>
+                        </div>
+                        </div>
+                        <embed class="embed-responsive-item" src="{{ video.vars.data.link }}" />
+                        {{ form_widget(video.tag, { 'attr': { 'class': 'd-none' }}) }}
+                    {% else %}
+                        {{ form_errors(video.tag) }}
+                        <div>
+                        <div>
+                            <label for="{{ video.tag.vars.id }}">
+                                Vidéo {{ i }}
+                            </label>
+                            {{ form_widget(video.tag) }}
+                        </div>
+                        </div>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+        <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i> {% if form.vars.data.id %}Modifier{% else %}Ajouter{% endif %}</button>
+        {{ form(form.children._token) }}
 </div>

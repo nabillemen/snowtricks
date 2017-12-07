@@ -99,10 +99,6 @@ class Trick
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotNull(message = "trick.category.not_null")
-     * @OwnAssert\ExistingElement(
-     *      message = "trick.category.existing_category",
-     *      fqdn = "SnowTricksBundle\Entity\Category"
-     * )
      */
     private $category;
 
@@ -305,3 +301,8 @@ class Trick
         $this->name = ucwords($this->name);
     }
 }
+
+//@OwnAssert\ExistingElement(
+//     message = "trick.category.existing_category",
+//     fqdn = "SnowTricksBundle\Entity\Category"
+//)

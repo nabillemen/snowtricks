@@ -25,10 +25,7 @@ class ImageManagementListener
             return;
         }
 
-        if(null !== $image->getFile()) {
-            $image->getFile()->move($this->imageDir, $image->getName());
-            $this->resizer->crop($this->imageDir . $image->getName(), 640, 360);
-        }
+        $this->save($image);
     }
 
     public function postRemove(LifecycleEventArgs $eventArgs)
@@ -39,8 +36,19 @@ class ImageManagementListener
             return;
         }
 
-        $absolutePath = $this->imageDir . $image->getName();
+        $this->remove($this->imageDir . $image->getName());
+    }
 
+    private function save(Image $image)
+    {
+        if(null !== $image->getFile()) {
+            $image->getFile()->move($this->imageDir, $image->getName());
+            $this->resizer->crop($this->imageDir . $image->getName(), 640, 360);
+        }
+    }
+
+    private function remove($absolutePath)
+    {
         if(file_exists($absolutePath)) {
             unlink($absolutePath);
         }

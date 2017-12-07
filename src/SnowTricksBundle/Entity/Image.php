@@ -5,6 +5,8 @@ namespace SnowTricksBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * Image
@@ -176,5 +178,23 @@ class Image
     public function loadName()
     {
         $this->name = $this->id . (!empty($this->extension) ? '.'.$this->extension : '');
+    }
+
+    /**
+     * @Assert\Callback()
+     */
+    public function completeFileValidation(ExecutionContextInterface $context)
+    {
+        if ($this->id === null) {
+            $constraint = new NotNull(array(
+                'message' => 'image.file.null'
+            ));
+            $context
+                ->getValidator()
+                ->inContext($context)
+                ->atPath('file')
+                ->validate($this->file, $constraint)
+            ;
+        }
     }
 }

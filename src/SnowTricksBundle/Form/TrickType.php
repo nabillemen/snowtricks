@@ -34,17 +34,21 @@ class TrickType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'expanded' => true,
-                'multiple' => false
+                'multiple' => false,
             ))
             ->add('images', CollectionType::class, array(
                 'entry_type' => ImageType::class,
+                'entry_options' => array('label' => false),
+                'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
             ))
             ->add('videos', CollectionType::class, array(
                 'entry_type' => VideoType::class,
+                'entry_options' => array('label' => false),
+                'by_reference' => false,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
             ))
         ;
     }
