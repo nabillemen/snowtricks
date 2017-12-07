@@ -21,9 +21,8 @@ class ExistingElementValidator extends ConstraintValidator
             return;
         }
 
-        if(get_class($obj) != $constraint->fqdn ||
-            get_class($obj) == $constraint->fqdn &&
-            !$this->em->contains($obj)) {
+        $isExpectedOrProxy = strpos(get_class($obj), $constraint->fqdn);
+        if (!$isExpectedOrProxy || $isExpectedOrProxy && !$this->em->contains($obj)) {
             $this->context->buildViolation($constraint->message)->addViolation();
         }
     }

@@ -4,6 +4,8 @@ namespace SnowTricksBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * Video
@@ -130,5 +132,23 @@ class Video
     {
         preg_match('#src="(.*?)"#', $this->tag, $subpatterns);
         $this->link = isset($subpatterns[1]) ? $subpatterns[1] : '';
+    }
+
+    /**
+     * @Assert\Callback()
+     */
+    public function completeTagValidation(ExecutionContextInterface $context)
+    {
+        if ($this->id === null) {
+            $constraint = new NotNull(array(
+                'message' => 'video.tag.null'
+            ));
+            $context
+                ->getValidator()
+                ->inContext($context)
+                ->atPath('tag')
+                ->validate($this->tag, $constraint)
+            ;
+        }
     }
 }

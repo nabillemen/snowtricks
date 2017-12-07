@@ -4,11 +4,10 @@ namespace SnowTricksBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SnowTricksBundle\Entity\Trick;
+use SnowTricksBundle\Entity\Category;
 use SnowTricksBundle\Form\TrickType;
 
 class TrickController extends Controller
@@ -86,10 +85,26 @@ class TrickController extends Controller
     /**
      * @Route("/add", name = "trick_add")
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
-        $trick = $this->getDoctrine()->getManager()->getRepository('SnowTricksBundle:Trick')->find(134);
+        $trick = new Trick();
+
         $form = $this->createForm(TrickType::class, $trick);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($trick);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'La figure '.$trick->getName().' a bien été ajouté'
+            );
+
+            return $this->redirect($this->generateUrl('trick_index').'#tricks');
+        }
 
         return $this->render('snowtricks/add.html.twig', array(
             'form' => $form->createView()
@@ -98,9 +113,41 @@ class TrickController extends Controller
 
     /**
      * @Route("/edit/{slug}", name = "trick_edit")
+     * @ParamConverter(
+     *      "trick",
+     *      options = {
+     *          "repository_method" = "findBySlugWithAll"
+     *      }
+     * )
      */
-    public function editAction()
+    public function editAction(Trick $trick, Request $request)
     {
-        return $this->render('snowtricks/edit.html.twig');
+        $videoMaxId = count($trick->getVideos()) - 1;
+        $imageMaxId = count($trick->getImages()) - 1;
+
+        $form = $this->createForm(TrickType::class, $trick);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($trick);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'La figure ' . $trick->getName() . ' a bien été modifiée'
+            );
+
+            return $this->redirect($this->generateUrl('trick_view', array(
+                'slug' => $trick->getSlug()
+            )));
+        }
+
+        return $this->render('snowtricks/edit.html.twig', array(
+            'form' => $form->createView(),
+            'video_max_id' => $videoMaxId,
+            'image_max_id' => $imageMaxId,
+        ));
     }
 }

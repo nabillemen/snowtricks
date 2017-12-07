@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="trick")
  * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\TrickRepository")
  * @UniqueEntity("name")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Trick
 {
@@ -98,10 +99,6 @@ class Trick
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotNull(message = "trick.category.not_null")
-     * @OwnAssert\ExistingElement(
-     *      message = "trick.category.existing_category",
-     *      fqdn = "SnowTricksBundle\Entity\Category"
-     * )
      */
     private $category;
 
@@ -294,5 +291,13 @@ class Trick
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->name = ucwords($this->name);
     }
 }

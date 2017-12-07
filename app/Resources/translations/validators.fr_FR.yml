@@ -14,8 +14,10 @@ trick.category.not_null: Une catégorie doit être attribuée à cette figure
 trick.category.existing_category: La catégorie spécifiée n'existe pas
 
 video.tag.regex: Le lien spécifiée est invalide
+video.tag.null: Un tag doit être attribué à ce champs
 
 image.file.invalid: Le fichier ne semble pas être une image
 image.file.min_width: L'image est trop petite en largeur
 image.file.min_height: L'image est trop petite en longueur
 image.file.ratio: L'image ne respecte pas les proportions
+image.file.null: Un fichier doit être attribué à ce champs

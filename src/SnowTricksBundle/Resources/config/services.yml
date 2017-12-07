@@ -2,9 +2,10 @@ services:
 #    snow_tricks.example:
 #        class: SnowTricksBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
-    SnowTricksBundle\DoctrineListeners\ImageCreationListener:
+    SnowTricksBundle\DoctrineListeners\ImageManagementListener:
         arguments:
             $imageDir: "%trick.server.image_directory%"
+            $resizer: "@SnowTricksBundle\\Utils\\Resizer"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postRemove }
