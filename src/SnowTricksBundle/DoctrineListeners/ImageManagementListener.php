@@ -3,18 +3,16 @@
 namespace SnowTricksBundle\DoctrineListeners;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use SnowTricksBundle\Utils\Resizer;
+use Utils\Resizer;
 use SnowTricksBundle\Entity\Image;
 
 class ImageManagementListener
 {
     private $imageDir;
-    private $resizer;
 
-    public function __construct($imageDir, Resizer $resizer)
+    public function __construct($imageDir)
     {
         $this->imageDir = $imageDir;
-        $this->resizer = $resizer;
     }
 
     public function postPersist(LifecycleEventArgs $eventArgs)
@@ -43,7 +41,7 @@ class ImageManagementListener
     {
         if(null !== $image->getFile()) {
             $image->getFile()->move($this->imageDir, $image->getName());
-            $this->resizer->crop($this->imageDir . $image->getName(), 640, 360);
+            Resizer::crop($this->imageDir . $image->getName(), 640, 360);
         }
     }
 

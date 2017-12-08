@@ -1,10 +1,10 @@
 <?php
 
-namespace SnowTricksBundle\Utils;
+namespace Utils;
 
 class Resizer
 {
-    public function crop($path, $width, $height) {
+    public static function crop($path, $width, $height) {
         $dimensions = getimagesize($path);
 
         if (!is_array($dimensions)) {

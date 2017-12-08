@@ -58,9 +58,7 @@
                 <button id="add_image" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
             </div>
             <ul id="image-container" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
-            {% if image_max_id is defined %}
-                image-max-id="{{ image_max_id }}"
-            {% endif %}>
+            image-max-id="{% if image_max_id is defined %}{{image_max_id}}{% else %}-1{% endif %}">
             {% set i = 0 %}
             {% for image in form.images %}
                 {% set i = i + 1 %}
@@ -100,9 +98,7 @@
                 <button id="add_video" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
             </div>
             <ul id="video-container" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}"
-            {% if video_max_id is defined %}
-                video-max-id="{{ video_max_id }}"
-            {% endif %}>
+                video-max-id="{% if video_max_id is defined %}{{video_max_id}}{% else %}-1{% endif %}">
                 {% set i = 0 %}
                 {% for video in form.videos %}
                     {% set i = i + 1 %}
