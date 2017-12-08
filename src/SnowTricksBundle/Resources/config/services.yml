@@ -5,13 +5,6 @@ services:
     SnowTricksBundle\DoctrineListeners\ImageManagementListener:
         arguments:
             $imageDir: "%trick.server.image_directory%"
-            $resizer: "@SnowTricksBundle\\Utils\\Resizer"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postRemove }
-
-    SnowTricksBundle\Validator\Constraints\ExistingElementValidator:
-        arguments:
-            $em: "@doctrine.orm.entity_manager"
-        tags:
-            - { name: validator.constraint_validator }
