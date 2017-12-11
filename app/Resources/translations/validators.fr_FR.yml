@@ -1,6 +1,7 @@
 category.name.not_blank: La catégorie doit avoir un nom.
 category.name.not_unique: Une catégorie dispose déjà du nom indiqué.
 
+trick.name.not_unique: Une autre figure porte déjà ce nom.
 trick.name.not_blank: La figure doit avoir un nom.
 trick.name.min: Le nom de la figure est trop court.
 trick.name.max: Le nom de la figure est trop long.

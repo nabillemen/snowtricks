@@ -66,12 +66,19 @@ class TrickController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->remove($trick);
-            $em->flush();
 
-            $this->addFlash(
-                'notice',
-                'La figure '.$trick->getName().' a bien été supprimée'
-            );
+            try {
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'La figure '.$trick->getName().' a bien été supprimée.'
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'error',
+                    'Une erreur est survenue lors de la suppression de la figure '.$trick->getName()
+                );
+            }
 
             return $this->redirect($this->generateUrl('trick_index').'#tricks');
         }
@@ -96,12 +103,18 @@ class TrickController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($trick);
-            $em->flush();
-
-            $this->addFlash(
-                'notice',
-                'La figure '.$trick->getName().' a bien été ajouté'
-            );
+            try {
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'La figure '.$trick->getName().' a bien été ajoutée.'
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'error',
+                    'Une erreur est survenue lors de l\'ajout de la figure '.$trick->getName()
+                );
+            }
 
             return $this->redirect($this->generateUrl('trick_index').'#tricks');
         }
@@ -132,12 +145,18 @@ class TrickController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($trick);
-            $em->flush();
-
-            $this->addFlash(
-                'notice',
-                'La figure ' . $trick->getName() . ' a bien été modifiée'
-            );
+            try {
+                $em->flush();
+                $this->addFlash(
+                    'success',
+                    'La figure ' . $trick->getName() . ' a bien été modifiée.'
+                );
+            } catch (\Exception $e) {
+                $this->addFlash(
+                    'error',
+                    'Une erreur est survenue lors de la modification de la figure '.$trick->getName()
+                );
+            }
 
             return $this->redirect($this->generateUrl('trick_view', array(
                 'slug' => $trick->getSlug()

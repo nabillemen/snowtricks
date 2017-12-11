@@ -139,20 +139,6 @@ class Image
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Image
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * Get name
      *
      * @return string
