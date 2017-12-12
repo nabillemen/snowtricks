@@ -595,7 +595,7 @@ label {
 .control-label {
     font-weight: bold;
 }
-
+/*
 #video-container label, #image-container label {
     margin: 5px;
     margin-right: 10px;
@@ -607,4 +607,71 @@ label {
 }
 #remove_image, #remove_video {
     margin-left: 20px;
+}
+*/
+
+.img-responsive {
+    width: 100%
+}
+
+.custom-file-control::before {
+    content: "Parcourir";
+}
+.custom-file-control::after {
+    content: "Choisir le fichier...";
+}
+
+.list-image {
+    padding: 0;
+}
+
+.list-image-cross {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.list-file {
+    position: relative;
+}
+
+.list-file-cross {
+    position: absolute;
+    right: 0;
+    bottom: 25%;
+    display: none;
+}
+
+.images li, .videos li {
+    position: relative;
+    margin: 5px;
+}
+
+.hovered {
+    background-color: rgba(33, 37, 41, 0.8);
+}
+
+.list-file, .list-tag {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.alert-list li {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.list-embed-cross {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.list-tag-cross {
+    position: absolute;
+    right: 0;
+    bottom: 25%;
+    display: none;
 }

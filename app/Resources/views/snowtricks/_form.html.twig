@@ -51,80 +51,44 @@
                     'label': 'Images',
                     'label_attr': {'class': 'control-label'}
                 }) }}
-                <button id="remove_image" class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
-                <button id="add_image" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
             </div>
-            <ul id="image-container" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
-            image-max-id="{% if image_max_id is defined %}{{image_max_id}}{% else %}-1{% endif %}">
-            {% set i = 0 %}
-            {% for image in form.images %}
-                {% set i = i + 1 %}
-                <div>
-                {% if image.vars.data.id is not null %}
-                    <div>
-                    <div>
-                        <label for="{{ image.file.vars.id }}">
-                            Image {{ i }}
-                        </label>
-                    </div>
-                    </div>
-                    <img class="img-responsive" src="{{ asset(trick_image_directory ~ image.vars.data.name) }}" alt="">
-                    {{ form_widget(image.file, { 'attr': { 'class': 'd-none' }}) }}
-                {% else %}
-                    {{ form_errors(image.file) }}
-                    <div>
-                    <div>
-                        <label for="{{ image.file.vars.id }}">
-                            Image {{ i }}
-                        </label>
-                        {{ form_widget(image.file) }}
-                    </div>
-                    </div>
-                {% endif %}
-                </div>
+            <ul class="images list-unstyled" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+            {% for i, image in form.images %}
+                {{ form_errors(image.file) }}
+                <li>
+                    {% if image.vars.data.id is not null %}
+                        <img class="img-responsive" src="{{ asset(trick_image_directory ~ image.vars.data.name) }}" alt="">
+                        {{ form_widget(image.file, { 'attr': { 'class': 'd-none' }}) }}
+                    {% else %}
+                        {{ include('snowtricks/_image_prototype.html.twig', {__name__: i}) }}
+                    {% endif %}
+                </li>
             {% endfor %}
             </ul>
         </div>
+
         <div class="form-group col-md-6">
             <div>
                 {{ form_label(form.videos, null, {
                     'label': 'Vidéos',
                     'label_attr': {'class': 'control-label'}
                 }) }}
-                <button id="remove_video" class="btn btn-danger" type="button"><i class="fa fa-minus"></i></button>
-                <button id="add_video" class="btn btn-success" type="button"><i class="fa fa-plus"></i></button>
             </div>
-            <ul id="video-container" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}"
-                video-max-id="{% if video_max_id is defined %}{{video_max_id}}{% else %}-1{% endif %}">
-                {% set i = 0 %}
-                {% for video in form.videos %}
-                    {% set i = i + 1 %}
-                    <div>
+            <ul class="videos list-unstyled" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                {% for i, video in form.videos %}
+                    {{ form_errors(video.tag) }}
+                    <li>
                     {% if video.vars.data.id is not null %}
-                        <div>
-                        <div>
-                            <label for="{{ video.tag.vars.id }}">
-                                    Vidéo {{ i }}
-                            </label>
-                        </div>
-                        </div>
                         <embed class="embed-responsive-item" src="{{ video.vars.data.link }}" />
                         {{ form_widget(video.tag, { 'attr': { 'class': 'd-none' }}) }}
                     {% else %}
-                        {{ form_errors(video.tag) }}
-                        <div>
-                        <div>
-                            <label for="{{ video.tag.vars.id }}">
-                                Vidéo {{ i }}
-                            </label>
-                            {{ form_widget(video.tag) }}
-                        </div>
-                        </div>
+                        {{ include('snowtricks/_video_prototype.html.twig', {__name__: i}) }}
                     {% endif %}
-                    </div>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
+
     </div>
         <button class="btn btn-primary" type="submit"><i class="fa fa-pencil"></i> {% if form.vars.data.id %}Modifier{% else %}Ajouter{% endif %}</button>
         {{ form(form.children._token) }}
