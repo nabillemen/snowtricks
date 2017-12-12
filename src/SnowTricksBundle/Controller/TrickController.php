@@ -135,9 +135,6 @@ class TrickController extends Controller
      */
     public function editAction(Trick $trick, Request $request)
     {
-        $videoMaxId = count($trick->getVideos()) - 1;
-        $imageMaxId = count($trick->getImages()) - 1;
-
         $form = $this->createForm(TrickType::class, $trick);
 
         $form->handleRequest($request);
