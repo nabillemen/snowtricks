@@ -2,3 +2,10 @@ services:
 #    community.example:
 #        class: CommunityBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    CommunityBundle\DoctrineListeners\AvatarManagementListener:
+        arguments:
+            $avatarDir: "%trick.server.avatar_directory%"
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postRemove }

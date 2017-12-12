@@ -164,9 +164,7 @@ class TrickController extends Controller
         }
 
         return $this->render('snowtricks/edit.html.twig', array(
-            'form' => $form->createView(),
-            'video_max_id' => $videoMaxId,
-            'image_max_id' => $imageMaxId,
+            'form' => $form->createView()
         ));
     }
 }

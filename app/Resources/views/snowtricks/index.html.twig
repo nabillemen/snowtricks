@@ -28,40 +28,22 @@
         <div class="row">
         {% for trick in tricks %}
           <div class="col-md-4 col-sm-6 portfolio-item">
-              <!--
-              <img class="img-fluid" src="{{ asset('uploads/tricks/' ~ trick.images.first.name) }}" alt="">
-              <div class="portfolio-caption">
-
-                <h4>
-                    <form class="view-link" action="{{ path('trick_view', {'slug': trick.slug}) }}" method="post">
-                      <button type="submit" name="page" value="{{ page }}" class="btn-link">{{ trick.name | upper }}</button>
-                    </form>
-                    <div class="pull-right">
-                    <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="btn btn-primary">
-                      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </a>
-                    <a href="{{ path('trick_delete', {'slug': trick.slug}) }}" class="btn btn-danger">
-                      <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                    </div>
-                </h4>
-                -->
-                <a class="portfolio-link" href="{{ path('trick_view', {'slug': trick.slug}) }}">
-                    <img class="img-fluid" src="{{ asset('uploads/tricks/' ~ trick.images.first.name) }}" alt="">
-                    <div class="portfolio-caption">
-                      <h4 class="trick-title">{{ trick.name | upper }}</h4>
-                      <div class="management-btns">
-                          <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="btn btn-primary">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                          </a>
-                          <a href="{{ path('trick_delete', {'slug': trick.slug}) }}" class="btn btn-danger">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                          </a>
-                      </div>
-                      <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
-                    </div>
-                </a>
-              </div>
+            <a class="portfolio-link" href="{{ path('trick_view', {'slug': trick.slug}) }}">
+                <img class="img-fluid" src="{{ asset('uploads/tricks/' ~ trick.images.first.name) }}" alt="">
+                <div class="portfolio-caption">
+                  <h4 class="trick-title">{{ trick.name | upper }}</h4>
+                  <div class="management-btns">
+                      <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="btn btn-primary">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                      </a>
+                      <a href="{{ path('trick_delete', {'slug': trick.slug}) }}" class="btn btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+                  </div>
+                  <h3 class="section-subheading text-muted">{{ trick.description }}</h3>
+                </div>
+              </a>
+           </div>
         {% endfor %}
         </div>
 

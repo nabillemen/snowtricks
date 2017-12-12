@@ -1,21 +1,18 @@
 <?php
 
-namespace SnowTricksBundle\Entity;
+namespace CommunityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
- * Image
+ * Avatar
  *
- * @ORM\Table(name="image")
- * @ORM\Entity(repositoryClass="SnowTricksBundle\Repository\ImageRepository")
+ * @ORM\Table(name="avatar")
+ * @ORM\Entity(repositoryClass="CommunityBundle\Repository\AvatarRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Image
+class Avatar
 {
     /**
      * @var int
@@ -34,27 +31,17 @@ class Image
     private $extension;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Trick", inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
      */
-    private $trick;
-
-    /**
-     * @Assert\Image(
-     *      mimeTypesMessage = "image.file.invalid",
-     *      minWidth = 630,
-     *      minHeight = 350,
-     *      minWidthMessage = "image.file.min_width",
-     *      minHeightMessage = "image.file.min_height",
-     *      minRatio = 1.5,
-     *      maxRatio = 2,
-     *      minRatioMessage = "image.file.ratio",
-     *      maxRatioMessage = "image.file.ratio"
-     * )
-     */
-    private $file;
+    private $updatedAt;
 
     private $name;
+
+    private $file;
+
+    private $oldName;
 
     /**
      * Get id
@@ -71,7 +58,7 @@ class Image
      *
      * @param string $extension
      *
-     * @return Image
+     * @return Avatar
      */
     public function setExtension($extension)
     {
@@ -91,39 +78,16 @@ class Image
     }
 
     /**
-     * Set trick
-     *
-     * @param \SnowTricksBundle\Entity\Trick $trick
-     *
-     * @return Image
-     */
-    public function setTrick(\SnowTricksBundle\Entity\Trick $trick)
-    {
-        $this->trick = $trick;
-
-        return $this;
-    }
-
-    /**
-     * Get trick
-     *
-     * @return \SnowTricksBundle\Entity\Trick
-     */
-    public function getTrick()
-    {
-        return $this->trick;
-    }
-
-    /**
      * Set file
      *
      * @param \Symfony\Component\HttpFoundation\File\File $file
      *
-     * @return Image
+     * @return Avatar
      */
     public function setFile(File $file)
     {
         $this->file = $file;
+        $this->setUpdatedAt(new \DateTime());
 
         return $this;
     }
@@ -150,6 +114,7 @@ class Image
 
     /**
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function loadExtension()
     {
@@ -157,6 +122,15 @@ class Image
             $this->extension = $this->file->guessExtension();
         }
     }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function loadOldName()
+    {
+        $this->oldName = $this->getName();
+    }
+
 
     /**
      * @ORM\PostPersist
@@ -169,20 +143,31 @@ class Image
     }
 
     /**
-     * @Assert\Callback()
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Avatar
      */
-    public function completeFileValidation(ExecutionContextInterface $context)
+    public function setUpdatedAt($updatedAt)
     {
-        if ($this->id === null) {
-            $constraint = new NotNull(array(
-                'message' => 'image.file.null'
-            ));
-            $context
-                ->getValidator()
-                ->inContext($context)
-                ->atPath('file')
-                ->validate($this->file, $constraint)
-            ;
-        }
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function getOldName()
+    {
+        return $this->oldName;
     }
 }
