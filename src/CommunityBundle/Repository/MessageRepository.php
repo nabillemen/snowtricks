@@ -10,4 +10,15 @@ namespace CommunityBundle\Repository;
  */
 class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getOrderedList($page = 1, $amountPerPage = 10)
+    {
+        $query = $this->_em->createQueryBuilder('m')
+                           ->orderBy('m.creationDate', 'DESC')
+                           ->getQuery();
+
+        $query->setFirstResult(($page - 1) * $amountPerPage)
+              ->setMaxResults($amountPerPage);
+
+        return new Paginator($query);
+    }
 }

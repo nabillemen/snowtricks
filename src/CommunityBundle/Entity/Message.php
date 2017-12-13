@@ -3,12 +3,14 @@
 namespace CommunityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Message
  *
  * @ORM\Table(name="message")
  * @ORM\Entity(repositoryClass="CommunityBundle\Repository\MessageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Message
 {
@@ -25,6 +27,7 @@ class Message
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255)
+     * @Assert\NotBlank(message="message.content.not_blank")
      */
     private $content;
 
@@ -38,6 +41,7 @@ class Message
     /**
      * @ORM\ManyToOne(targetEntity="User", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotNull(message="message.author.not_null")
      */
     private $author;
 
@@ -121,5 +125,13 @@ class Message
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function loadCreationDate()
+    {
+        $this->creationDate = new \DateTime();
     }
 }

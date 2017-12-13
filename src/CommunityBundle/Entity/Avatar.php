@@ -4,6 +4,9 @@ namespace CommunityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * Avatar
@@ -39,6 +42,19 @@ class Avatar
 
     private $name;
 
+    /**
+     * @Assert\Image(
+     *      mimeTypesMessage = "avatar.file.invalid",
+     *      minWidth = 60,
+     *      minHeight = 60,
+     *      minWidthMessage = "avatar.file.min_width",
+     *      minHeightMessage = "avatar.file.min_height",
+     *      minRatio = 1,
+     *      maxRatio = 2,
+     *      minRatioMessage = "avatar.file.ratio",
+     *      maxRatioMessage = "avatar.file.ratio"
+     * )
+     */
     private $file;
 
     private $oldName;
@@ -169,5 +185,23 @@ class Avatar
     public function getOldName()
     {
         return $this->oldName;
+    }
+
+    /**
+     * @Assert\Callback()
+     */
+    public function completeFileValidation(ExecutionContextInterface $context)
+    {
+        if ($this->id === null) {
+            $constraint = new NotNull(array(
+                'message' => 'avatar.file.null'
+            ));
+            $context
+                ->getValidator()
+                ->inContext($context)
+                ->atPath('file')
+                ->validate($this->file, $constraint)
+            ;
+        }
     }
 }
