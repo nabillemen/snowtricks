@@ -9,10 +9,15 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            {% for message in app.flashes('notice') %}
+            {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message }}
             </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+              <div class="alert alert-danger">
+                  {{ message }}
+              </div>
             {% endfor %}
             <h2 class="section-heading text-uppercase">{{ trick.name | upper }}</h2>
             <h3 class="section-subheading text-muted">{{ trick.category.name | upper }}</h3>

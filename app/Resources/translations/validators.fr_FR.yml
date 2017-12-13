@@ -1,6 +1,7 @@
 category.name.not_blank: La catégorie doit avoir un nom.
 category.name.not_unique: Une catégorie dispose déjà du nom indiqué.
 
+trick.name.not_unique: Une autre figure porte déjà ce nom.
 trick.name.not_blank: La figure doit avoir un nom.
 trick.name.min: Le nom de la figure est trop court.
 trick.name.max: Le nom de la figure est trop long.
@@ -21,3 +22,25 @@ image.file.min_width: L'image est trop petite en largeur.
 image.file.min_height: L'image est trop petite en longueur.
 image.file.ratio: L'image ne respecte pas les proportions.
 image.file.null: Un fichier doit être attribué à ce champs.
+
+avatar.file.invalid: Le fichier ne semble pas être une image.
+avatar.file.min_width: L'image est trop petite en largeur.
+avatar.file.min_height: L'image est trop petite en longueur.
+avatar.file.ratio: L'image ne respecte pas les proportions.
+avatar.file.null: Un fichier doit être attribué à ce champs.
+
+user.full_name.not_unique: Il semblerait que votre nom complet soit déjà enregistré.
+user.firstname.min: Le prénom est trop court.
+user.firstname.max: Le prénom est trop long.
+user.firstname.not_blank: Le prénom n'est pas indiqué.
+user.lastname.min: Le nom est trop court.
+user.lastname.max: Le nom est trop long.
+user.firstname.not_blank: Le nom n'est pas indiqué.
+user.email.invalid: Cet e-mail semble invalide.
+user.email.not_unique: Cet e-mail est déjà enregistré.
+user.password.not_unique: Ce mot de passe est déjà enregistré.
+user.firstname.not_blank: L'e-mail n'est pas indiqué.
+user.password.not_blank: Vous devez renseigner un mot de passe.
+
+message.author.not_null: Ce message doit avoir un auteur.
+message.content.not_blank: Aucun contenu n'est associé à ce message.

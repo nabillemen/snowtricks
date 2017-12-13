@@ -12,7 +12,10 @@ class VideoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('tag', TextType::class);
+        $builder->add('tag', TextType::class, array(
+            'required' => false,
+            'label' => false
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

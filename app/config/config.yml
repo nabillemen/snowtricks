@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@SnowTricksBundle/Resources/config/services.yml" }
+    - { resource: "@CommunityBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -10,6 +11,8 @@ parameters:
     locale: fr_FR
     trick.client.image_directory: 'uploads/tricks/'
     trick.server.image_directory: '%kernel.project_dir%/web/%trick.client.image_directory%'
+    trick.client.avatar_directory: 'uploads/avatars/'
+    trick.server.avatar_directory: '%kernel.project_dir%/web/%trick.client.avatar_directory%'
     snowtricks.tricks.amount_per_page: 9
     snowtricks.tricks.range: 5
 
@@ -47,6 +50,7 @@ twig:
         index_range: '%snowtricks.tricks.range%'
         index_amount_per_page: '%snowtricks.tricks.amount_per_page%'
         trick_image_directory: '%trick.client.image_directory%'
+        trick_avatar_directory: '%trick.client.avatar_directory%'
 
 # Doctrine Configuration
 doctrine:

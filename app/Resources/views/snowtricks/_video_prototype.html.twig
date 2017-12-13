@@ -1,0 +1,12 @@
+{% set placeholder =
+'<iframe width="560" height="315" src="https://www.youtube.com/embed/xxxxxxxxx" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>'|e('html_attr')
+%}
+{% set prototype =
+'<input type="text" name="trick[videos][__name__][tag]" id="trick_videos___name___tag" placeholder="'~ placeholder ~'">'
+%}
+
+{% if __name__ is defined %}
+    {% set prototype = prototype|replace({'__name__': __name__}) %}
+{% endif %}
+
+{{ prototype|raw }}

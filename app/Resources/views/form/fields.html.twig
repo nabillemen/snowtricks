@@ -13,10 +13,18 @@
 
 {%- block form_errors -%}
     {%- if errors|length > 0 -%}
-    <ul class="list-unstyled">
+    <ul class="list-unstyled alert-list">
         {%- for error in errors -%}
             <li class="alert alert-danger">{{ error.message }}</li>
         {%- endfor -%}
     </ul>
     {%- endif -%}
 {%- endblock form_errors -%}
+
+{% block _trick_images_entry_widget %}
+    {{ include('snowtricks/_image_prototype.html.twig') }}
+{% endblock %}
+
+{% block _trick_videos_entry_widget %}
+    {{ include('snowtricks/_video_prototype.html.twig') }}
+{% endblock %}
