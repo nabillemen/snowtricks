@@ -1,6 +1,6 @@
 <?php
 
-namespace SnowTricksBundle\DoctrineListeners;
+namespace SnowTricksBundle\Doctrine;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Utils\Resizer;

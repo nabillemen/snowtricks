@@ -15,19 +15,11 @@ class Fixtures extends Fixture
     {
         $user = new User();
         $user->setFirstname('Nabil');
-        $user->setLastname('Lemenuel');
+        $user->setLastName('Lemenuel');
         $user->setEmail('nabil.lemenuel@gmx.fr');
-        $user->setPassword('symfony');
+        $user->setPlainPassword('iliketurtles');
 
-        $avatar = new Avatar();
-        $avatar->setFile(new File('C:\Users\nabil\Pictures\chalet_8/CYANELLA 2017_Photo_by_Alexandre_Van_Battel-7.jpg'));
-
-        $user->setAvatar($avatar);
         $manager->persist($user);
-        $manager->flush();
-
-        $user->setAvatar();
-        $manager->persist($user);
-        $manager->flush();
+        $manager->flush($user);
     }
 }

@@ -1,0 +1,48 @@
+{% extends 'secondary.html.twig' %}
+
+{% block content %}
+    <section class="bg-light" id="tricks">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Connexion</h2>
+          </div>
+          <div class="col-lg-12 text-center">
+                {% if error %}
+                <div>{{ error.messageKey }}</div>
+                {% endif %}
+
+                    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+                    <div class="form-row">
+                        <div class="col-sm-6 offset-sm-3 form-group">
+                            {{ form_label(form._username, null, {
+                                'label': 'Identifiant',
+                                'label_attr': {'class': 'control-label'}
+                            }) }}
+                            {{ form_widget(form._username, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-6 offset-sm-3 form-group">
+                            {{ form_label(form._password, null, {
+                                'label': 'Mot de passe',
+                                'label_attr': {'class': 'control-label'}
+                            }) }}
+                            {{ form_widget(form._password, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 form-group">
+                            <button type="submit" class="btn btn-success">Se connecter <span class="fa fa-lock"></span></button>
+                        </div>
+                        <div class="col-lg-12 form-group">
+                            <a href="{{ path('user_register') }}" class="btn btn-info">S'inscrire <span class="fa fa-address-book"></span></a>
+                        </div>
+                    </div>
+                    <input type="hidden" name="_target_path" value="{{ path('trick_index') }}" />
+                   {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

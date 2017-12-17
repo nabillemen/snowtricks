@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -26,7 +27,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("email", message="user.email.not_unique")
  * @UniqueEntity("password", message="user.password.not_unique")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -81,7 +82,6 @@ class User
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="user.password.not_blank")
      */
     private $password;
 
@@ -90,6 +90,11 @@ class User
      * @Assert\Valid()
      */
     private $avatar;
+
+    /**
+     * @Assert\NotBlank(message="user.password.not_blank")
+     */
+    private $plainPassword;
 
     /**
      * Get id
@@ -211,6 +216,17 @@ class User
         return $this;
     }
 
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        $this->password = null;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
     /**
      * Get avatar
      *
@@ -219,5 +235,30 @@ class User
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    public function getSalt()
+    {
+
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
     }
 }

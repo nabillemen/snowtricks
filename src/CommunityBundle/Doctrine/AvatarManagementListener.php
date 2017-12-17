@@ -1,6 +1,6 @@
 <?php
 
-namespace CommunityBundle\DoctrineListeners;
+namespace CommunityBundle\Doctrine;
 
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Utils\Resizer;

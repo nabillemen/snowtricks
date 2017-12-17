@@ -2,10 +2,23 @@ services:
 #    community.example:
 #        class: CommunityBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
-    CommunityBundle\DoctrineListeners\AvatarManagementListener:
+    CommunityBundle\Doctrine\AvatarManagementListener:
         arguments:
             $avatarDir: "%trick.server.avatar_directory%"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
             - { name: doctrine.event_listener, event: postUpdate }
             - { name: doctrine.event_listener, event: postRemove }
+
+    CommunityBundle\Security\LoginFormAuthenticator:
+        arguments:
+            $formFactory: '@form.factory'
+            $em: '@doctrine.orm.entity_manager'
+            $router: '@router'
+            $encoder: '@security.user_password_encoder.generic'
+
+    CommunityBundle\Doctrine\HashPasswordListener:
+        arguments:
+            $encoder: '@security.user_password_encoder.generic'
+        tags:
+            - { name: doctrine.event_subscriber }
