@@ -13,7 +13,7 @@ parameters:
     trick.server.image_directory: '%kernel.project_dir%/web/%trick.client.image_directory%'
     trick.client.avatar_directory: 'uploads/avatars/'
     trick.server.avatar_directory: '%kernel.project_dir%/web/%trick.client.avatar_directory%'
-    snowtricks.tricks.amount_per_page: 9
+    snowtricks.tricks.amount_per_page: 3
     snowtricks.tricks.range: 5
 
 framework:

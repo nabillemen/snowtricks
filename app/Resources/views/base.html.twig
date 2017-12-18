@@ -39,7 +39,7 @@
             {% else %}
             <li class="nav-item" id="avatar-container">
                 <div class="">
-                    <a class="snowtricks-menu-item" href="#"><img id="menu-avatar" src="{{ asset(trick_avatar_directory ~ (app.user.avatar ? app.user.avatar.name : 'default_avatar.png')) }}" alt=""></a>
+                    <a class="snowtricks-menu-item" href="{{ path('user_edit') }}"><img id="menu-avatar" src="{{ asset(trick_avatar_directory ~ (app.user.avatar ? app.user.avatar.name : 'default_avatar.png')) }}" alt=""></a>
                 </div>
             </li>
             <li class="nav-item">

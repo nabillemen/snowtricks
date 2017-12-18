@@ -40,4 +40,17 @@ class UserController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     * @Route("/profile/edit", name="user_edit")
+     */
+    public function editAction(Request $request)
+    {
+        $form = $this->createFormBuilder()->getForm();
+
+        return $this->render('community/edit_profile.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 }
