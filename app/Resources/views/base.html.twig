@@ -38,7 +38,9 @@
             </li>
             {% else %}
             <li class="nav-item" id="avatar-container">
-                <a class="snowtricks-menu-item" href="#"><img id="menu-avatar" src="{{ trick_avatar_directory ~ (app.user.avatar ? app.user.avatar.name : 'default_avatar.png')}}" alt=""></a>
+                <div class="">
+                    <a class="snowtricks-menu-item" href="#"><img id="menu-avatar" src="{{ asset(trick_avatar_directory ~ (app.user.avatar ? app.user.avatar.name : 'default_avatar.png')) }}" alt=""></a>
+                </div>
             </li>
             <li class="nav-item">
                 <a href="{{ path('security_logout') }}" class="nav-link js-scroll-trigger btn btn-danger snowtricks-menu-item" id="logout"><i class="fa fa-sign-out fa-lg"></i></a>
