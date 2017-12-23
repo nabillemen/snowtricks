@@ -1,0 +1,39 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+{% extends 'secondary.html.twig' %}
+
+{% block content %}
+    <section class="bg-light" id="tricks">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Mot de passe oublié</h2>
+          </div>
+          <div class="col-lg-12 text-center">
+              {% for message in app.flashes('sent') %}
+                  <div class="col-sm-6 offset-sm-3 alert alert-success">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+              {{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+              <div class="form-row">
+                  <div class="col-sm-6 offset-sm-3 form-group">
+                      {{ form_errors(form.email) }}
+                      {{ form_label(form.email, null, {
+                          'label': 'E-mail',
+                          'label_attr': {'class': 'control-label'}
+                      }) }}
+                      {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                  </div>
+              </div>
+              <div class="form-row">
+                  <div class="col-lg-12">
+                      <button class="btn btn-info" type="submit">Recevoir un nouveau mot de passe <i class="fa fa-paper-plane"></i></button>
+                  </div>
+              </div>
+              {{ form_end(form) }}
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

@@ -44,3 +44,6 @@ user.password.not_blank: Vous devez renseigner un mot de passe.
 
 message.author.not_null: Ce message doit avoir un auteur.
 message.content.not_blank: Aucun contenu n'est associé à ce message.
+
+current_user.password.invalid: Le mot de passe est incorrect.
+email.not_matching: Cet e-mail ne correspond à aucun utilisateur.

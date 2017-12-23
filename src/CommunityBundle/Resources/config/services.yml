@@ -22,3 +22,17 @@ services:
             $encoder: '@security.user_password_encoder.generic'
         tags:
             - { name: doctrine.event_subscriber }
+
+    CommunityBundle\Validator\Constraints\IsCurrentUserPasswordValidator:
+        arguments:
+            $encoder: '@security.user_password_encoder.generic'
+            $tokenStorage: '@security.token_storage'
+            $em: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator }
+
+    CommunityBundle\Validator\Constraints\IsMatchingUsernameValidator:
+        arguments:
+            $em: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator }

@@ -22,10 +22,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="CommunityBundle\Repository\UserRepository")
  * @UniqueEntity(
  *      fields={"firstname", "lastname"},
- *      message="user.full_name.not_unique"
+ *      message="user.full_name.not_unique",
+ *      groups={"Registration", "ProfileEdition"}
  * )
- * @UniqueEntity("email", message="user.email.not_unique")
- * @UniqueEntity("password", message="user.password.not_unique")
+ * @UniqueEntity(
+ *      "email",
+ *      message="user.email.not_unique",
+ *      groups={"Registration"}
+ * )
+ * @UniqueEntity(
+ *      "password",
+ *      message="user.password.not_unique",
+ *      groups={"Registration", "PasswordReset"}
+ * )
  */
 class User implements UserInterface
 {
@@ -46,9 +55,13 @@ class User implements UserInterface
      *      min=2,
      *      max=50,
      *      minMessage="user.firstname.min",
-     *      maxMessage="user.firstname.max"
+     *      maxMessage="user.firstname.max",
+     *      groups={"Registration", "ProfileEdition"}
      * )
-     * @Assert\NotBlank(message="user.firstname.not_blank")
+     * @Assert\NotBlank(
+     *      message="user.firstname.not_blank",
+     *      groups={"Registration", "ProfileEdition"}
+     * )
      */
     private $firstname;
 
@@ -60,9 +73,13 @@ class User implements UserInterface
      *      min=2,
      *      max=50,
      *      minMessage="user.lastname.min",
-     *      maxMessage="user.lastname.max"
+     *      maxMessage="user.lastname.max",
+     *      groups={"Registration", "ProfileEdition"}
      * )
-     * @Assert\NotBlank(message="user.lastname.not_blank")
+     * @Assert\NotBlank(
+     *      message="user.lastname.not_blank",
+     *      groups={"Registration", "ProfileEdition"}
+     * )
      */
     private $lastname;
 
@@ -72,9 +89,10 @@ class User implements UserInterface
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\Email(
      *      strict=false,
-     *      message="user.email.invalid"
+     *      message="user.email.invalid",
+     *      groups={"Registration"}
      * )
-     * @Assert\NotBlank(message="user.email.not_blank")
+     * @Assert\NotBlank(message="user.email.not_blank", groups={"Registration"})
      */
     private $email;
 
@@ -92,7 +110,10 @@ class User implements UserInterface
     private $avatar;
 
     /**
-     * @Assert\NotBlank(message="user.password.not_blank")
+     * @Assert\NotBlank(
+     *      message="user.password.not_blank",
+     *      groups={"Registration", "PasswordReset"}
+     * )
      */
     private $plainPassword;
 
@@ -185,7 +206,7 @@ class User implements UserInterface
      *
      * @return User
      */
-    public function setPassword($password)
+    public function setPassword($password = null)
     {
         $this->password = $password;
 

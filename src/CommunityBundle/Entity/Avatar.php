@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\NotNull;
  * @ORM\Entity(repositoryClass="CommunityBundle\Repository\AvatarRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class Avatar
+class Avatar implements \Serializable
 {
     /**
      * @var int
@@ -203,5 +203,21 @@ class Avatar
                 ->validate($this->file, $constraint)
             ;
         }
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->extension,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+       list (
+           $this->id,
+           $this->extension,
+       ) = unserialize($serialized);
     }
 }
