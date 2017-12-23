@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -21,12 +22,21 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="CommunityBundle\Repository\UserRepository")
  * @UniqueEntity(
  *      fields={"firstname", "lastname"},
- *      message="user.full_name.not_unique"
+ *      message="user.full_name.not_unique",
+ *      groups={"Registration", "ProfileEdition"}
  * )
- * @UniqueEntity("email", message="user.email.not_unique")
- * @UniqueEntity("password", message="user.password.not_unique")
+ * @UniqueEntity(
+ *      "email",
+ *      message="user.email.not_unique",
+ *      groups={"Registration"}
+ * )
+ * @UniqueEntity(
+ *      "password",
+ *      message="user.password.not_unique",
+ *      groups={"Registration", "PasswordReset"}
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -45,9 +55,13 @@ class User
      *      min=2,
      *      max=50,
      *      minMessage="user.firstname.min",
-     *      maxMessage="user.firstname.max"
+     *      maxMessage="user.firstname.max",
+     *      groups={"Registration", "ProfileEdition"}
      * )
-     * @Assert\NotBlank(message="user.firstname.not_blank")
+     * @Assert\NotBlank(
+     *      message="user.firstname.not_blank",
+     *      groups={"Registration", "ProfileEdition"}
+     * )
      */
     private $firstname;
 
@@ -59,9 +73,13 @@ class User
      *      min=2,
      *      max=50,
      *      minMessage="user.lastname.min",
-     *      maxMessage="user.lastname.max"
+     *      maxMessage="user.lastname.max",
+     *      groups={"Registration", "ProfileEdition"}
      * )
-     * @Assert\NotBlank(message="user.lastname.not_blank")
+     * @Assert\NotBlank(
+     *      message="user.lastname.not_blank",
+     *      groups={"Registration", "ProfileEdition"}
+     * )
      */
     private $lastname;
 
@@ -71,9 +89,10 @@ class User
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\Email(
      *      strict=false,
-     *      message="user.email.invalid"
+     *      message="user.email.invalid",
+     *      groups={"Registration"}
      * )
-     * @Assert\NotBlank(message="user.email.not_blank")
+     * @Assert\NotBlank(message="user.email.not_blank", groups={"Registration"})
      */
     private $email;
 
@@ -81,7 +100,6 @@ class User
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, unique=true)
-     * @Assert\NotBlank(message="user.password.not_blank")
      */
     private $password;
 
@@ -90,6 +108,14 @@ class User
      * @Assert\Valid()
      */
     private $avatar;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="user.password.not_blank",
+     *      groups={"Registration", "PasswordReset"}
+     * )
+     */
+    private $plainPassword;
 
     /**
      * Get id
@@ -180,7 +206,7 @@ class User
      *
      * @return User
      */
-    public function setPassword($password)
+    public function setPassword($password = null)
     {
         $this->password = $password;
 
@@ -211,6 +237,17 @@ class User
         return $this;
     }
 
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        $this->password = null;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
     /**
      * Get avatar
      *
@@ -219,5 +256,30 @@ class User
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    public function getSalt()
+    {
+
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
     }
 }

@@ -14,6 +14,7 @@ class Fixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        /*
         $categories = ['grab', 'slide', 'rotation', 'flip'];
 
         foreach ($categories as $name) {
@@ -148,5 +149,6 @@ class Fixtures extends Fixture
         }
 
         $manager->flush();
+        */
     }
 }

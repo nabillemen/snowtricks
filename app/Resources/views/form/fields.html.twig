@@ -22,9 +22,45 @@
 {%- endblock form_errors -%}
 
 {% block _trick_images_entry_widget %}
-    {{ include('snowtricks/_image_prototype.html.twig') }}
+    {% if hidden is defined and hidden %}
+        <span class="d-none">
+        {{ form_widget(form.file) }}
+        </span>
+    {% else %}
+        {{ form_widget(form.file) }}
+    {% endif %}
 {% endblock %}
 
 {% block _trick_videos_entry_widget %}
-    {{ include('snowtricks/_video_prototype.html.twig') }}
+    {%
+        set placeholder =
+            '<iframe width="560" height="315" src="https://www.youtube.com/embed/xxxxxxxxx" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>'
+    %}
+
+    {% if hidden is defined and hidden %}
+        <span class="d-none">
+        {{ form_widget(form.tag, {'attr': {'placeholder': placeholder}}) }}
+        </span>
+    {% else %}
+        {{ form_widget(form.tag, {'attr': {'placeholder': placeholder}}) }}
+    {% endif %}
+{% endblock %}
+
+{% block video_widget %}
+    {{ form_widget(form.tag) }}
+{% endblock %}
+
+{% block image_widget %}
+    {{ form_widget(form.file) }}
+{% endblock %}
+
+{% block file_widget %}
+<label class="custom-file">
+    <input type="file" {{ block('widget_attributes') }} class="custom-file-input">
+    <span class="custom-file-control form-control-file"></span>
+</label>
+{% endblock %}
+
+{% block text_widget %}
+    <input type="text" {{ block('widget_attributes') }} {% if placeholder is defined %}placeholder="{{ placeholder }}" {% endif %} value="{{ value }}">
 {% endblock %}

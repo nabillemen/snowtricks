@@ -42,7 +42,7 @@
             <div class="col-lg-12 btns">
                 <p class="text-center">
                     {% if app.request.headers.get('referer')
-                        matches '#^' ~ url('trick_index', {'page': 1})|trim('/1') ~ '#' %}
+                        matches '#^' ~ url('trick_index', {'page': 1})|trim('/1') ~ '\d*$#' %}
                         <a href="{{ app.request.headers.get('referer') }}" class="btn btn-info">
                     {% else %}
                         <a href="{{ path('trick_index', {'page': 1}) }}" class="btn btn-info">
@@ -50,6 +50,7 @@
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                     Retour à la liste
                   </a>
+                  {% if is_granted('ROLE_USER') %}
                   <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="btn btn-primary">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     Modifier la figure
@@ -58,6 +59,7 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     Supprimer la figure
                   </a>
+                  {% endif %}
               </p>
             </div>
         </div>

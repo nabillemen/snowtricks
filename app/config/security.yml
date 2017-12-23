@@ -1,11 +1,12 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
-
+    encoders:
+        CommunityBundle\Entity\User: bcrypt
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        snowtricks_users:
+            entity: {class: CommunityBundle\Entity\User, property: email}
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,6 +16,14 @@ security:
 
         main:
             anonymous: ~
+            guard:
+                authenticators:
+                    - CommunityBundle\Security\LoginFormAuthenticator
+            logout:
+                path: /logout
+
+    access_control:
+        - {path: ^/add, roles: ROLE_USER}
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

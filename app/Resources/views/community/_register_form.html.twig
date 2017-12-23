@@ -1,0 +1,65 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'well form-horizontal', 'novalidate': 'novalidate'}}) }}
+    <div class="form-row">
+        <div class="col-lg-12">
+            {{ form_errors(form.firstname) }}
+            {{ form_errors(form.lastname) }}
+        </div>
+        <div class="col-sm-6 form-group">
+            {{ form_label(form.firstname, null, {
+                'label': 'Prénom',
+                'label_attr': {'class': 'control-label'}
+            }) }}
+            {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-sm-6 form-group">
+            {{ form_label(form.lastname, null, {
+                'label': 'Nom',
+                'label_attr': {'class': 'control-label'}
+            }) }}
+            {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-lg-12 form-group">
+            {{ form_errors(form.email) }}
+            {{ form_label(form.lastname, null, {
+                'label': 'E-mail',
+                'label_attr': {'class': 'control-label'}
+            }) }}
+            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-lg-12 form-group">
+            <div class="form-row">
+                <div class="col-lg-12">
+                    {{ form_errors(form.plainPassword) }}
+                    {{ form_errors(form.plainPassword.first) }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-sm-6">
+                    {{ form_label(form.plainPassword.first, null, {
+                        'label': 'Mot de passe',
+                        'label_attr': {'class': 'control-label'}
+                    }) }}
+                    {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form_label(form.plainPassword.second, null, {
+                        'label': 'Mot de passe (confirmation)',
+                        'label_attr': {'class': 'control-label'}
+                    }) }}
+                    {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-lg-12">
+            <button class="btn btn-info" type="submit">S'inscrire <i class="fa fa-paper-plane"></i></button>
+        </div>
+    </div>
+{{ form_end(form) }}

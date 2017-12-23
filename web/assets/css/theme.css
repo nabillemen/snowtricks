@@ -664,7 +664,7 @@ label {
 
 .list-embed-cross {
     position: absolute;
-    right: 0;
+    right: 15%;
     top: 0;
     display: none;
 }
@@ -674,4 +674,27 @@ label {
     right: 0;
     bottom: 25%;
     display: none;
+}
+
+#logout {
+    border-radius: 25px !important;
+}
+
+#welcome-text {
+    font-weight: 500;
+    margin: 7px;
+    margin-right: 100px;
+    padding-top: 15.4px;
+    padding-bottom: 15.4px;
+    padding-right: 14px;
+    padding-left: 14px;
+}
+
+#menu-avatar {
+    height: 40px !important;
+    border-radius: 25px;
+}
+
+.blue-link {
+    color: #337ab7;
 }

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use SnowTricksBundle\Entity\Trick;
 use SnowTricksBundle\Entity\Category;
 use SnowTricksBundle\Form\TrickType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TrickController extends Controller
 {
@@ -55,6 +56,7 @@ class TrickController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/delete/{slug}", name = "trick_delete")
      */
     public function deleteAction(Trick $trick, Request $request)
@@ -90,6 +92,7 @@ class TrickController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/add", name = "trick_add")
      */
     public function addAction(Request $request)
@@ -125,6 +128,7 @@ class TrickController extends Controller
     }
 
     /**
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/edit/{slug}", name = "trick_edit")
      * @ParamConverter(
      *      "trick",

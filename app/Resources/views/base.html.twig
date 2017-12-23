@@ -27,13 +27,28 @@
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="{{ path('trick_index') }}">SnowTricks</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav text-uppercase ml-auto">
+          <ul class="navbar-nav text-uppercase ml-auto align-items-start">
+
+            {% if not is_granted('ROLE_USER') %}
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger btn btn-success btn-sm snowtricks-menu-item" href="/login">Se connecter</a>
+              <a class="nav-link js-scroll-trigger btn btn-success btn-sm snowtricks-menu-item" href="{{ path('security_login') }}">Se connecter</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger btn btn-primary-default btn-sm snowtricks-menu-item" href="/register">S'inscrire</a>
+              <a class="nav-link js-scroll-trigger btn btn-primary-default btn-sm snowtricks-menu-item" href="{{ path('user_register') }}">S'inscrire</a>
             </li>
+            {% else %}
+            <li class="nav-item" id="avatar-container">
+                <div class="">
+                    <a class="snowtricks-menu-item" href="{{ path('user_edit') }}"><img id="menu-avatar" src="{{ asset(trick_avatar_directory ~ (app.user.avatar and app.user.avatar.id ? app.user.avatar.name : 'default_avatar.png')) }}" alt=""></a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('security_logout') }}" class="nav-link js-scroll-trigger btn btn-danger snowtricks-menu-item" id="logout"><i class="fa fa-sign-out fa-lg"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger btn btn-info btn-sm snowtricks-menu-item" href="{{ path('trick_add') }}">Ajouter une figure <i class="fa fa-plus"></i></a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>
