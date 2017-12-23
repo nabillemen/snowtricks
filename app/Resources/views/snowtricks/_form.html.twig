@@ -58,9 +58,9 @@
                 <li>
                     {% if image.vars.data.id is not null %}
                         <img class="img-responsive" src="{{ asset(trick_image_directory ~ image.vars.data.name) }}" alt="">
-                        {{ form_widget(image.file, { 'attr': { 'class': 'd-none' }}) }}
+                        {{ form_widget(image, {'hidden': true}) }}
                     {% else %}
-                        {{ include('snowtricks/_image_prototype.html.twig', {__name__: i}) }}
+                        {{ form_widget(image) }}
                     {% endif %}
                 </li>
             {% endfor %}
@@ -80,9 +80,9 @@
                     <li>
                     {% if video.vars.data.id is not null %}
                         <embed class="embed-responsive-item" src="{{ video.vars.data.link }}" />
-                        {{ form_widget(video.tag, { 'attr': { 'class': 'd-none' }}) }}
+                        {{ form_widget(video, {'hidden': true}) }}
                     {% else %}
-                        {{ include('snowtricks/_video_prototype.html.twig', {__name__: i}) }}
+                        {{ form_widget(video) }}
                     {% endif %}
                     </li>
                 {% endfor %}
