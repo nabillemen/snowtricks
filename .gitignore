@@ -4,3 +4,5 @@ var/cache/
 var/logs/
 var/sessions/
 web/uploads
+app/config/parameters.yml
+swiftmailer/
