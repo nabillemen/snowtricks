@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
     $collectionHolder = $('ul.images');
 
     $collectionHolder.find('li').each(function() {
-        if($(this).find(".custom-file").length > 0) {
+        if($(this).find("img").length == 0) {
             $(this).addClass("list-file");
         }
         addFileFormDeleteLink($(this));
@@ -75,7 +75,7 @@ jQuery(document).ready(function() {
         $fileFormLi.append($removeFormA);
 
         $fileFormLi.mouseenter(function() {
-            if($fileFormLi.find(".custom-file").length > 0) {
+            if($fileFormLi.find("img").length == 0) {
                 $fileFormLi.addClass("hovered");
             }
             $removeFormA.removeClass("d-none");

@@ -694,3 +694,7 @@ label {
     height: 40px !important;
     border-radius: 25px;
 }
+
+.blue-link {
+    color: #337ab7;
+}
