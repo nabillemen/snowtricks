@@ -13,13 +13,15 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getOrderedList($page = 1, $amountPerPage = 10)
     {
-        $query = $this->_em->createQueryBuilder('m')
-                           ->orderBy('m.creationDate', 'DESC')
-                           ->getQuery();
+        $query = $this->_em->createQuery(
+            'SELECT m
+                FROM CommunityBundle:Message as m
+                ORDER BY m.creationDate DESC'            
+        );
 
         $query->setFirstResult(($page - 1) * $amountPerPage)
               ->setMaxResults($amountPerPage);
 
-        return new ion\Paginator($query);
+        return new Paginator($query);
     }
 }

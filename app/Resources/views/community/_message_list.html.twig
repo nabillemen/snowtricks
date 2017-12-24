@@ -1,0 +1,81 @@
+<h1 class="text-center thread-title">Fil de discussion</h1>
+<div class="container">
+{% for message in messages %}
+    <div class="row">
+        <div class="thread-avatar offset-md-2">
+            {% set avatar = message.author.avatar %}
+            <img src="{{ asset(user_avatar_directory ~ (avatar and avatar.id ? avatar.name : 'default_avatar.png')) }}" alt="">
+        </div>
+        <div class="col-8 thread-content">
+            <div class="row">
+                <h6>{{ message.author.firstname ~ ' ' ~ message.author.lastname }} :</h6>
+            </div>
+            <div class="row">
+                <p>{{ message.content }}</p>
+            </div>
+            <div class="row">
+                <div>
+                    <p>à {{ message.creationDate|date('H\\Hi (\\l\\e m/d/Y)') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="row text-center">
+        <h4>Aucun message n'a encore été posté...</h4>
+    </div>
+{% endfor %}
+{% set last_page = ((messages|length)/messages_amount_per_page)|round(0, 'ceil') %}
+{% if last_page != 1 %}
+    <div class="row">
+        <div class="mx-auto">
+        {% set left_end = page - (messages_list_range/2)|round(0, 'floor') %}
+        {% set right_end = page + (messages_list_range/2)|round(0, 'floor') %}
+        {% if left_end < 1 %}
+            {% set left_end = 1 %}
+            {% if last_page < messages_list_range %}
+                {% set right_end = last_page %}
+            {% else %}
+                {% set right_end = messages_list_range %}
+            {% endif %}
+        {% elseif right_end > last_page %}
+            {% set right_end = last_page %}
+            {% set left_end = last_page - messages_list_range + 1 %}
+            {% if left_end < 1 %}
+                {% set left_end = 1 %}
+            {% endif %}
+        {% endif %}
+        <nav>
+            <ul class="pagination">
+                <li class="page-item{% if page == 1 %} disabled{%endif%}">
+                    <a class="page-link" href="?page={{ 1 }}#thread">
+                        <i class="fa fa-fast-backward" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="page-item{% if page == 1 %} disabled{%endif%}">
+                    <a class="page-link" href="?page={{ page - 1 }}#thread">
+                        <i class="fa fa-backward" aria-hidden="true"></i>
+                    </a>
+                </li>
+                {% for i in range(left_end, right_end) %}
+                    <li class="page-item{% if i == page %} active{%endif%}">
+                        <a class="page-link" href="?page={{ i }}#thread">
+                            {{ i }}
+                        </a>
+                    </li>
+                {% endfor %}
+                <li class="page-item{% if page == last_page %} disabled{%endif%}">
+                    <a class="page-link" href="?page={{ page + 1 }}#thread">
+                        <i class="fa fa-forward" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="page-item{% if page == last_page %} disabled{%endif%}">
+                    <a class="page-link" href="?page={{ last_page }}#thread">
+                        <i class="fa fa-fast-forward" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+{% endif %}
+</div>
