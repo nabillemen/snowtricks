@@ -1,6 +1,7 @@
 <?php
 
 namespace CommunityBundle\Repository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * MessageRepository
@@ -19,6 +20,6 @@ class MessageRepository extends \Doctrine\ORM\EntityRepository
         $query->setFirstResult(($page - 1) * $amountPerPage)
               ->setMaxResults($amountPerPage);
 
-        return new Paginator($query);
+        return new ion\Paginator($query);
     }
 }
