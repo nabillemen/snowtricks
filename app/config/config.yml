@@ -11,8 +11,8 @@ parameters:
     locale: fr_FR
     trick.client.image_directory: 'uploads/tricks/'
     trick.server.image_directory: '%kernel.project_dir%/web/%trick.client.image_directory%'
-    trick.client.avatar_directory: 'uploads/avatars/'
-    trick.server.avatar_directory: '%kernel.project_dir%/web/%trick.client.avatar_directory%'
+    user.client.avatar_directory: 'uploads/avatars/'
+    user.server.avatar_directory: '%kernel.project_dir%/web/%user.client.avatar_directory%'
     snowtricks.tricks.amount_per_page: 3
     snowtricks.tricks.range: 5
 
@@ -50,7 +50,7 @@ twig:
         index_range: '%snowtricks.tricks.range%'
         index_amount_per_page: '%snowtricks.tricks.amount_per_page%'
         trick_image_directory: '%trick.client.image_directory%'
-        trick_avatar_directory: '%trick.client.avatar_directory%'
+        user_avatar_directory: '%user.client.avatar_directory%'
 
 # Doctrine Configuration
 doctrine:
