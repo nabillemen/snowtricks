@@ -29,7 +29,7 @@ class TrickController extends Controller
                             'snowtricks.tricks.amount_per_page'
                         ));
 
-        if (!$tricks->getIterator()->count()) {
+        if ($tricks->count() && !$tricks->getIterator()->count()) {
             throw $this->createNotFoundException();
         }
 
