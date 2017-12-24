@@ -24,7 +24,7 @@ class TrickController extends Controller
     {
         $tricks =  $this->getDoctrine()
                         ->getManager()
-                        ->getRepository('SnowTricksBundle:Trick')
+                        ->getRepository(Trick::class)
                         ->getOrderedList($page, $this->getParameter(
                             'snowtricks.tricks.amount_per_page'
                         ));
