@@ -1,12 +1,10 @@
-<h1 class="text-center thread-title">Fil de discussion</h1>
-<div class="container">
 {% for message in messages %}
     <div class="row">
-        <div class="thread-avatar offset-md-2">
+        <div class="thread-avatar offset-md-3">
             {% set avatar = message.author.avatar %}
             <img src="{{ asset(user_avatar_directory ~ (avatar and avatar.id ? avatar.name : 'default_avatar.png')) }}" alt="">
         </div>
-        <div class="col-8 thread-content">
+        <div class="col-5 thread-content">
             <div class="row">
                 <h6>{{ message.author.firstname ~ ' ' ~ message.author.lastname }} :</h6>
             </div>
@@ -78,4 +76,3 @@
         </nav>
     </div>
 {% endif %}
-</div>
