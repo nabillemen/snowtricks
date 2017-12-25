@@ -3,8 +3,12 @@
 namespace CommunityBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use CommunityBundle\Entity\Message;
+use CommunityBundle\Form\MessageType;
 
 class MessageController extends Controller
 {
@@ -30,8 +34,29 @@ class MessageController extends Controller
         ));
     }
 
-    public function postAction()
+    /**
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function postAction(RequestStack $requestStack)
     {
+        $masterRequest = $requestStack->getMasterRequest();
 
+        $message = new Message();
+        $message->setAuthor($this->getUser());
+        $form = $this->createForm(MessageType::class, $message);
+
+        $form->handleRequest($masterRequest);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($message);
+            $em->flush();
+
+            $masterRequest->attributes->set('isMessagePosted', true);
+        }
+
+        return $this->render('community/_post_input.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }

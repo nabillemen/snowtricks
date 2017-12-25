@@ -1,0 +1,18 @@
+{% form_theme form 'form/fields.html.twig' %}
+{{ form_start(form, {'attr': {'class': 'well form-horizontal', 'novalidate': 'novalidate'}}) }}
+    <div class="form-row">
+        <div class="col-sm-4 offset-sm-4 form-group">
+            {{ form_errors(form.content) }}
+            {{ form_label(form.content, null, {
+                'label': 'Poster un message',
+                'label_attr': {'class': 'control-label'}
+            }) }}
+            {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="offset-sm-4 form-group">
+            <button class="btn btn-info" type="submit">Poster <i class="fa fa-paper-plane"></i></button>
+        </div>
+    </div>
+{{ form_end(form) }}
