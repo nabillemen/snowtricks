@@ -75,6 +75,8 @@ class SecurityController extends Controller
                  'sent',
                  'Un e-mail avec ton nouveau mot de passe t\'a été envoyé.'
              );
+
+             return $this->redirectToRoute('security_restore');
          }
 
          return $this->render('community/restore.html.twig', array(
