@@ -67,6 +67,10 @@
     </section>
 
     <section id="thread">
+        <h1 class="text-center thread-title">Fil de discussion</h1>
+        {% if is_granted('ROLE_USER') %}
+            {{ render(controller('CommunityBundle:Message:post')) }}
+        {% endif %}
         {{ render(controller(
             'CommunityBundle:Message:list',
             { 'page': app.request.query.get('page') }
