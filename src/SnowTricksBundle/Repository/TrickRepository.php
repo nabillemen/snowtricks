@@ -39,9 +39,10 @@ class TrickRepository extends \Doctrine\ORM\EntityRepository
                 JOIN t.category c
                 JOIN t.images i
                 JOIN t.videos v
-                WHERE t.slug = '".$slug."'"
+                WHERE t.slug = :slug"
         );
-
+        $query->setParameter('slug', $slug);
+        
         return $query->getOneOrNullResult();
     }
 }
