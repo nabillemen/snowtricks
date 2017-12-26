@@ -81,13 +81,7 @@
                         </a>
                     </li>
                     <li class="page-item{% if page == 1 %} disabled{%endif%}">
-                        <a class="page-link" href="
-                            {% if page == 1 %}
-                                {{ path('trick_index', {'page': 1}) }}
-                            {% else %}
-                                {{ path('trick_index', {'page': 1}) }}
-                            {% endif %}
-                        #tricks">
+                        <a class="page-link" href="{% if page > 1 %}{{ path('trick_index', {'page': page - 1}) }}{% endif %}#tricks">
                             <i class="fa fa-backward" aria-hidden="true"></i>
                         </a>
                     </li>
