@@ -57,12 +57,12 @@ class SecurityController extends Controller
              $message = \Swift_Message::newInstance()
                  ->setSubject('Ton nouveau mot de passe')
                  ->setFrom($this->getParameter('mailer_user'))
-                 ->setTo('nabil.lemenuel@gmx.fr')
+                 ->setTo($user->getUsername())
                  ->setBody(
                      $this->renderView(
                          'emails/new_password.txt.twig',
                          array(
-                             'name' => $user->getUsername(),
+                             'name' => $user->getFirstname(),
                              'password' => $password
                          )
                     ),
