@@ -38,5 +38,11 @@ services:
             - { name: validator.constraint_validator }
 
     CommunityBundle\Kernel\MessagePostedListener:
+        arguments:
+            $em: '@doctrine.orm.entity_manager'
+            $router: '@router'
+            $formFactory: '@form.factory'
+            $tokenStorage: '@security.token_storage'
+            $requestStack: '@request_stack'
         tags:
-            - { name: kernel.event_listener, event: kernel.response, method: onMessageInput }
+            - { name: kernel.event_listener, event: kernel.request, method: onMessageInput }
