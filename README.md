@@ -2,7 +2,7 @@ SnowTricks, a Symfony project
 =============================
 # How to install this project
 ## Prerequisites
-Your need to install [composer](https://getcomposer.org/) in order to use this project.
+You need to install [composer](https://getcomposer.org/) in order to use this project.
 ## Installation
 - Clone the repository via git, or download it.
 ```
